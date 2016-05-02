@@ -1,0 +1,93 @@
+SOURCE BOX ISOTROPIC GAUSS SPECTRUM
+
+This source model has a considerable flexibility, allowing the definition of a wide variety of source shapes and spectra. The notes below describe the different subsections in detail.
+
+
+>>>> PHOTON POLARISATION >>>>>>>>>>>>>>>>>>>>>>>>
+
+Please read the relevant sections of the PENELOPE manual (scattering of polarised photons and the appendix on photon polarisation) before using this feature.
+
+The use of the scattering models that include photon polarisation is governed by the field named ACTIVATE PHOTON POLARISATION PHYSICS. When set to 1 (activated) the Stokes parameters (see PENELOPE documentation) determine the state of polarisation of primary photons. Otherwise, polarisation is ignored and the Stokes parameters are irrelevant. Notice that if POLARISATION=1 an initially unpolarised photon beam (defined by STOKES=(0,0,0)) can become polarised after a scattering event.
+
+Also, it must be borne in mind that if photons are emitted isotropically within a cone of finite aperture (see below), the base vectors employed to describe the initial polarisation state rotate as described in the PENELOPE manual. Thus, for instance, photons linearly polarised will have its direction of polarisation rotated differently for different directions of flight.
+
+
+>>>> SPATIAL POSITION >>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+* Particles are generated inside a rectangular box that will be referred to as the source box. Its position is given by filling the input field COORDINATES OF BOX CENTER, in cm. Its size is determined by three BOX SIDES, along the x, y and z directions. In addition, two Gaussian distributions, one along the x and the other along the y axis of the box reference frame, can be defined by giving their respective FWHMs. Notice that the final position is the result of sampling a point inside the box and applying a Gaussian displacement along the x and y directions (in the box reference frame, see below). Hence, the final position could be located outside of the box.
+
+* The source box can be rotated arbitrarily. To this end, three EULER ANGLES are given in deg. The first angle defines a rotation around the z axis; the second, a rotation around the original y axis; and the third, a rotation again around the original z axis. For more details about rotations and Euler angles the reader may consult the PENELOPE manual. Note that this rotation is also applied to the (originally x,y) plane on which the Gaussian displacements mentioned before are applied.
+
+* Finally a TRANSLATION of the box is applied.
+
+* Note that the source box can be thought of the result of applying four transformations to a cube with unit side and centered at the origin of the geometry reference frame. These transformation are, excluding the Gaussian spread described above, the following (in the quoted order): (i) scaling of the three sides to arbitrary lengths; (ii) translation (as specified by the position of the box center); (ii) rotation around the origin of coordinates; and (iv) translation. This combination covers a wide range of possible configurations of the source.
+
+* It is also possible to specify in what MATERIAL of the quadric geometry to be simulated should the particles be generated. This is done as follows.
+
+Initial particle positions are sampled inside the source box. If MATERIAL is a positive number, the particle is accepted only if the index of the material where it lies coincides with MATERIAL. Otherwise it is rejected and re-sampled. This procedure is useful to define radioactive sources, in which primary particles are emitted inside objects with complex shapes. Of course, a source box large enough to contain the desired material object must be provided.
+
+If MATERIAL=0 the particle position is accepted regardless of the material in which it is located. If its position lies initially in vacuum, it is moved forward until either it enters the simulated object or escapes to infinity. In this latter case the returned material index is zero and the main program must provide safeguards to detect this. This model is intended to describe simple radiation fields, such as pencil or conical beams. Note that in the penEasy main program particles emitted but not aiming at the object are effectively counted as simulated histories, a fact that must be taken into account when interpreting simulation results, which are always normalized per history.
+
+Finally, if MATERIAL is a negative number a particle's direction is accepted only if it *points* at the material with index equal to -MATERIAL or if its initial position falls inside that material. This case is conceived to describe beams that produce radiation fields of arbitrary shapes. As an example consider a gamma point source immersed in air and producing a rectangular field on a certain distant plane. A thin rectangular body of the desired field dimensions should be included in the geometry file and in contact with the distant plane. This body should be made of a material that does not appear anywhere else, say mat=3. By setting MATERIAL to -3 in the config file, only particles aimed at the rectangular field will be accepted. Care must be exercised when setting the direction and aperture (see below) to make sure that the defined cone completely "illuminates" the body intended to define the field. Notice that in order to decide whether or not the particle points at MATERIAL, the presence of other intermediate materials, such as the air in the former example, is ignored.
+
+* The procedures described above apply also for voxelized geometries. Notice that if a material is selected by setting MATERIAL>0, the source has a constant emission intensity per unit volume. For quadric geometries, and since bodies of the same material are homogeneous, this also implies that the source has a constant emission intensity per unit mass. When voxelized geometries are used, however, different voxels may contain the same material but with varying mass densities. In this latter case, therefore, voxels inside the source box and made of the selected material emit a uniform number of particles per unit volume, but not necessarily per unit mass.
+
+
+>>>> DIRECTION OF EMISSION >>>>>>>>>>>>>>>>>>>>>>
+
+* The direction of emission is isotropic within a spherical trapezoid. The latter is defined as the part of a sphere limited by given POLAR and AZIMUTHAL ANGLE INTERVALS, [THETA0,THETA1] and [PHI0,PHI1], respectively. The reference system S' in which these spherical coordinates are given can be different from the reference system S used to define the geometry file. To allow for this, an (unnormalized) DIRECTION VECTOR in Cartesian coordinates can be introduced by the user. This vector represents the direction of the z axis of the S' system. The corresponding x and y axis are implicitly defined in the same manner as it is done when considering a polarized photon beam (see the PENELOPE manual version 2014, Fig. C1 in Appendix C).
+
+The polar interval [THETA0,THETA1] is introduced by the user in the input file by explicitly giving (in degrees) the two limiting values, that is, THETA0 and THETA1. Obviously, THETA1 must not be smaller than THETA0 and both values must be contained in [0,180]deg. The AZIMUTHAL INTERVAL is introduced by giving, also in degrees, PHI0 and the interval width DeltaPHI (not PHI1). PHI0 can take any value in [0,360), whereas DeltaPHI can take values in [0,360]. As usual, the azimuthal interval is obtained by rotating counterclockwise around the z axis, as determined by the right hand rule.
+
+A frequent case is when an isotropic radioactive source, limited to a cone, is considered. The (spherical) base of the cone can be thought of as a particular case of a spherical trapezoid with THETA0=0, THETA1 equal to the cone angular semi-aperture (angle between the cone axis and its generatrix) and DeltaPHI=360deg---in this case PHI0 is irrelevant, since the azimuthal interval covers a full circle. The direction vector (cone axis) and the angular semi-aperture of the cone should be selected so that the simulated source fully 'illuminates' the irradiated object. A semi-aperture THETA1=180deg defines a fully isotropic emission in the sphere (4*pi solid angle). Another common example is a pencil beam, which is defined by setting both polar angles to the same value (THETA0=THETA1) and DeltaPHI=0; if the beam direction coincides with the z axis, THETA0=THETA1=0 and DeltaPHI becomes irrelevant.
+
+
+>>>> ENERGY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+* An energy spectrum is given, below a DUMMY HEADER, as a piecewise function. Each entry in the spectrum contains two numbers, namely, the starting energy of a channel and its probability, which does not need to be normalized to unity. The list ends whenever a negative probability is found. To sample an energy, a channel is firstly selected according to the relative probabilities. The particle energy is then sampled uniformly inside that channel.
+
+For example, the two most prominent gamma lines of the discrete Co-60 spetrum can be defined as follows:
+
+  Energy(eV) Probability (Probabilities do not need to be normalized to 1)
+  1.17e6     99.97       1st channel: [1.17,1.17] MeV with prob ~ 99.97
+  1.17e6      0.0        2nd channel: [1.17,1.33] MeV, no emissions
+  1.33e6     99.99       3rd channel: [1.33,1.33] MeV with prob ~ 99.99
+  1.33e6     -1          A negative value signals the end of the spectrum
+
+A continuous spectrum with a gamma line at 0.85 MeV would look like this:
+
+  Energy(eV) Probability (Probabilities do not need to be normalized to 1)
+  0.5e6        2.1       1st channel: [0.5,0.6] MeV with prob ~ 2.1
+  0.6e6        3.7       2nd channel: [0.6,0.7] MeV with prob ~ 3.7
+  0.7e6        2.2       3rd channel: [0.7,0.8] MeV with prob ~ 5.2
+  0.8e6        1.4       etc...
+  0.85e6       5.5       gamma line with a non-normalized intensity of 5.5
+  0.85e6       1.9
+  0.9e6        0.3       Last channel is [0.9,1.0] MeV
+  1.0e6       -1         A negative value signals the end of the spectrum
+
+Note that the combination of continuous and discrete spectra is achieved by mixing channels of finite and null widths.
+
+* A Gaussian widening of the spectrum can be defined by introducing a value of FWHM (eV) different from zero. The actual particle energy is the result of applying a Gaussian displacement to the energy resulting from the sampling process described before. For a monoenergetic spectrum (i.e., a single line) the end result is a pure Gaussian distribution. In general, the resulting energy distribution is the convolution between the piecewise spectrum introduced before and the Gaussian. Recall that FWHM = sigma*sqrt(8*ln(2)) = 2.35482*sigma.
+
+For instance, the combination:
+
+  Energy(eV) Probability
+  1.0e6        1.0
+  1.0e6        -1
+  0.2e6         FWHM (eV)
+
+defines a Gaussian with mean 1.0 MeV and a FWHM of 0.2 MeV (i.e., sigma=84.932 keV).
+
+The Gaussian is truncated at +-5.sigma, with the additional restriction that no negative energies are produced: whenever the sampling returns a negative energy, its value is set to zero. These primary particles are counted as simulated histories, a fact that must be taken into account when interpreting simulation results, which are always normalized per history.
+
+* An ENERGY SPECTRUM FILE NAME can be entered in the first line of the subsection. If '-' is input, the spectrum is read from the config file itself, as described above. If an actual file name is given the header line and the lines containing the spectrum should obviously be removed from the config file. The energy subsection would in this case look as follows:
+
+  SUBSECTION FOR PARTICLE ENERGY:
+ spec.dat                        ENERGY SPECTRUM FILE NAME; ENTER '-' TO ENTER SPECTRUM IN NEXT LINES
+ 0.0                             FWHM(eV) OF GAUSSIAN ENERGY DISTRIB. [NOTE FWHM=SIGMA*sqrt(8*ln(2))]
+
+The expected format of the data in the external spectrum file is identical to the one described above with an additional feature, namely, lines starting with '#' or blank lines are allowed as comment lines.
+
+
+>>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

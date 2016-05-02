@@ -1,0 +1,73 @@
+VARIANCE-REDUCTION TECHNIQUES
+
+Three variance-reduction techniques (VRTs) are provided in penEasy, namely, interaction forcing, particle splitting and Russian roulette. Their principles and application are described in the PENELOPE manual. As explained below, penEasy extends the capabilities of the implementation of some of these methods in PENELOPE.
+
+VRTs can reduce the simulation time considerably if applied correctly. Beware, however, of the fact that when used incorrectly they can bias results and produce artifacts. Thus, our advice is to use them judiciously.
+
+
+>>>> INTERACTION FORCING (IF) >>>>>>>>>>>>>>>>>>>
+
+* IF artificially increases interaction cross sections so as to produce a larger number of interaction events and, therefore, better counting statistics.
+
+* IF will only be applied if the particle's statistical weight (variable WGHT in PENELOPE) is above the value specified as WMIN; otherwise, analog simulation is employed. It is advisable to define a prudent WMIN to prevent the occurrence of extremely small statistical weights, which may give rise to numerical precision problems. Notice that, if no other VR technique is applied, a WMIN equal to 1.0 prevents the repetitive application of interaction forcing to secondary particles already generated in forced events.
+
+* One line must be entered for each combination of material and interaction type for which interaction forcing is to be applied. The contents of this line is:
+- Material number (MAT).
+- Particle type (KPAR). KPAR=1,2,3 is for electrons, photons and positrons, respectively.
+- Type of interaction (ICOL), see list of values below. By setting ICOL=0 all interactions are forced by the same amount.
+- Forcing factor (FORCING) by which the mean free path of interactions ICOL will be divided when particles of type KPAR are in MAT.
+
+* PENELOPE labels the interaction mechanisms in the following way (see the PENELOPE manual for details):
+     Electrons (KPAR=1) and positrons (KPAR=3):
+        ICOL = 1 artificial soft event (hinge).
+             = 2 hard elastic collision.
+             = 3 hard inelastic collision.
+             = 4 hard bremsstrahlung emission.
+             = 5 inner-shell ionization.
+             = 6 positron annihilation.
+             = 7 delta interaction.
+             = 8 'auxiliary' fictitious interactions.
+     Photons (KPAR=2):
+        ICOL = 1 coherent (Rayleigh) scattering.
+             = 2 incoherent (Compton) scattering.
+             = 3 photoelectric absorption.
+             = 4 electron-positron pair production.
+             = 7 delta interaction.
+             = 8 'auxiliary' fictitious interactions.
+
+* The last entered line (before END of SECTION) must have MAT=0, which signals the end of the list.
+
+* CAUTION: the use of interaction forcing may bias pulse height spectra. This is not a failure of PENELOPE or penEasy, but a consequence of the nature of that particular tally.
+
+
+>>>> PARTICLE SPLITTING >>>>>>>>>>>>>>>>>>>>>>>>>
+
+* In particle splitting copies (or clones) of the original particle are artificially created with a reduced statistical weight. This process should be applied when particles approach the scoring region.
+
+* Splitting is applied only if the particle's statistical weight (variable WGHT in PENELOPE) is above the value specified as WMIN; otherwise, analog simulation is employed. It is advisable to define a prudent WMIN to prevent the occurrence of extremely small statistical weights, which may give rise to numerical precision problems.
+
+* Splitting is applied when a particle enters the SPLITTING MATERIAL. It is NOT applied when the particle is born in it, so it does not apply to primary, secondary or cloned particles generated inside the splitting material. The direction of flight can also be used as a limiting condition--see below.
+
+* Three different splitting modes are possible: (i) SIMPLE, which creates copies that are identical to the original particle; (ii) ROTATIONAL, which creates copies that are rotated around the z axis (or another axis, see below) so that they are uniformly distributed within a user- defined azimuthal interval; and (iii) XY, which creates three copies of the original particle, one with inverted sign for the x coordinate (and for the corresponding component of the direction vector), one with inverted y and one with inverted x and y. Rotational splitting should ONLY be used when the problem has azimuthal symmetry, whereas XY splitting should ONLY be used for problems with fourfold symmetry with respect to reflections on the XZ and YZ planes. These two situations occur frequently in the simulation of the upstream part of clinical linear accelerators (clinacs). It is the user's responsibility to ensure that these symmetries exist, since penEasy assumes no change in the body or material assigned to the newly created copies--although it does compute the new voxel indices if cloned particles are in a voxelised geometry.
+
+* The number of copies is specified as the SPLITTING FACTOR (which is obviously not used in case of XY splitting).
+
+* In case of rotational or xy symmetry, the reference system in which these symmetries are apparent can be different from the reference system employed in the description of the geometry. An example is in radiotherapy treatments with a clinac when the gantry, table or collimator angles are different from zero. To still be able to take advantage of the symmetry and apply splitting, a set of EULER ANGLES and a SHIFT can be introduced. The rotation and translation (in this order) defined by these parameters are those needed to convert the original reference system (as employed in the geometry file) into the system in which the symmetry is manifest.
+
+* Furthermore, splitting can be conditionally applied depending on the SIGN OF W (the 3rd component of the direction of flight) of the particle as it enters the splitting material. In this way it is possible to discern between particles flying 'upwards' or 'downwards'. Notice that the value of W is in the rotated reference system, as defined by the Euler angles commented before.
+
+* Finally, in case of rotational splitting, the cloned particles can be distributed in an arbitrary azimuthal interval. The interval is specified by giving the initial azimuthal angle, PHI0, and the interval width, DeltaPHI. For instance, the pair 0.0 360.0 defines the whole circumference and 90.0 20.0 the interval (90.0,110.0). This feature may be useful, e.g., to simulate an off-axis field of a clinac.
+
+
+>>>> RUSSIAN ROULETTE >>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+* In Russian roulette (RR) particles are killed with an user-defined probability; otherwise, they survive with an increased statistical weight. RR should be applied when particles get away from the scoring region.
+
+* RR is played only if the particle's statistical weight (variable WGHT in PENELOPE) is below the value specified as WMAX; otherwise, analog simulation is employed. It is advisable to define a prudent WMAX to prevent the occurrence of extremely large statistical weights, which may give rise to highly inefficient simulations and numerical precision problems.
+
+* RR is played when a particle enters the RUSSIAN ROULETTE MATERIAL. It is NOT applied when the particle is born in it, so it does not apply to primary, secondary or cloned particles generated inside that material.
+
+* The user enters the SURVIVAL PROBABILITY in the corresponding field. One minus the SURVIVAL PROBABILITY is the probability of being killed.
+
+
+>>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

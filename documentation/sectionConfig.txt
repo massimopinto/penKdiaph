@@ -1,0 +1,39 @@
+CONFIGURATION SECTION
+
+* The simulation will be halted when *any* of the following conditions is fulfilled: i) the requested NUMBER OF HISTORIES has been
+  reached; ii) the ALLOTED TIME has been exhausted; or iii) the requested relative uncertainties of all the active tallies have
+  been reached.
+
+* ALLOTTED TIME is interpreted as real time if it is a positive number. Otherwise, CPU (i.e. user) time is assumed.
+
+* Tallies will write a report to disk once every UPDATE INTERVAL (in s). A dump file will be written to disk once every INTERVAL
+  BETWEEN DUMPS.
+
+* Setting both random seeds equal to zero is an indication that they are to be read from an external file, whose name (say,
+  rngseeds.in) is read from the next line of input. The two seeds must be on the first line of rngseeds.in separated by one or
+  more blanks. This feature is useful when using parallel computing (see README file).
+
+* An OUTPUT DUMP FILE can be defined in the field provided for this purpose. If a valid filename is given, the data generated in
+  the current run will be saved (in binary format) in the dump file. This file could then be used in a subsequent simulation as a
+  RESTART FILE (see below). Enter '-' in the OUTPUT DUMP FILE field to indicate that no dump file must be generated (this may save
+  some CPU time).
+
+* Setting both random seeds equal to -1 indicates that the simulation is to be restarted (that is, continued) from the point where
+  a previous run ended. The dump file name of the previous run must be provided in the field named RESTART FILE. If the random
+  seeds are not -1,-1 this line is ignored. If this feature is used, the restart file will be read and the simulation will
+  continue seamlessly from the point where the previous run had ended.
+
+  IMPORTANT:
+
+  For the former point to be true, the config file must not differ at all from the config file that was used during the simulation
+  that created the dump file, with the possible exception of: (i) the requested number of histories; (ii) the allotted simulation
+  time; or (iii) the requested relative uncertainties of the active tallies. It is the user's responsibility to make sure that
+  this condition is fulfilled---the code does not check if the file has been altered in ways other than the three cases listed
+  above. Any alteration of any of the other fields in this file could result in a program crash or, even worse, in a
+  miscalculation of some tallies.
+
+* Starting a new simulation or restarting a previous one will overwrite all output data files sitting in the run directory. To
+  preserve the results of previous runs, move these output files to a different location.
+
+
+>>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

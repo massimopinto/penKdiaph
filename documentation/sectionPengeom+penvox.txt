@@ -1,0 +1,41 @@
+PENGEOM, PENVOX AND MIXED GEOMETRY MODELS
+
+Three possible geometry models are possible with penEasy, namely: (i) quadric geometries; (ii) voxelized geometries; and (iii) a mixture of quadrics and voxels.
+
+
+>>>> Quadric geometry >>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+* Case (i). Quadric geometries are defined by means of the package PENGEOM, which is included in the PENELOPE distribution. The elements (surfaces, bodies, modules) used in this geometrical model are introduced through a plain text file, typically named with an extension ended in GEO, according to the syntax described in the PENELOPE manual. Please refer to the said manual for further details on the use of PENGEOM.
+
+If used, the name of the quadric geometry file is entered in the field named QUADRICS FILE NAME of the config file.
+
+
+>>>> Voxelized geometry >>>>>>>>>>>>>>>>>>>>>>>>>
+
+* Case (ii). A voxelized geometry is a geometry model in which the object to be simulated is described in terms of a (usually large) collection of (usually small) volume elements, or voxels for short. Each voxel is a rectangular prism with a homogeneous material composition. In the model implemented in penEasy, all voxels have the same dimensions and they are adjacent, that is, each voxel has its six faces in contact with those of the closest neighbors, except of course for those voxels located in the periphery of what we shall call the voxels bounding box. The latter is defined as the space occupied by voxels---an imaginary rectangular-shaped prism containing all voxels.
+
+* Voxels are assumed to have their sides parallel to the axis of the Cartesian reference frame (called S hereafter) used for the simulation. The voxels bounding box, the imaginary rectangular box that delimits the set of defined voxels, is implicitly assumed to lie in the first octant of S, that is, in the region {x>0,y>0,z>0}. The voxel with indices (i,j,k)=(1,1,1) has one of its corners at the origin of S. Thus, the coordinates of the center of each voxel can be inferred from its indices (i,j,k) and the length of the sides.
+
+* Voxels definition is done through a plain text file, typically named with an extension ending in VOX. A sample file, which contains a detailed description of the syntax and instructions regarding data formats, is provided with the penEasy distribution. Please refer to this sample file for further details on syntax and formats.
+
+If used, the name of the voxels geometry file is entered in the field named VOXELS FILE NAME of the config file.
+
+
+>>>> Mixed quadric & voxelized geometries >>>>>>>
+
+* Case (iii). Both a quadric (GEO) and a voxelized (VOX) geometry file names are provided in the config file. The quadric geometry is the dominant one: it covers the voxelized geometry making it 'invisible' to the transport routines. Only voxels that overlap with a unique quadric body, identified as the 'transparent' body (or module), are visible to the transport routines. In other words, only voxels that coincide in space with the transparent body exist, prevailing over the latter.
+
+* The transparent body is defined by the user in the config file through the field TRANSPARENT QUADRIC MAT. As the name indicates, the user is prompted to enter the material index of which the transparent body is made of. This material index cannot be zero, i.e., the transparent material cannot be vacuum.
+
+* The following example, taken from a medical physics application, will serve to illustrate these concepts. A small brachytherapy source, modelled here as a homogeneous metallic cylinder for simplicity, is inserted in a patient who stands in a cubic treatment room with concrete walls. The patient is described with a voxelized geometry derived from a CT (Computerized Tomography) scan. The source and the room walls are described with quadric surfaces. The source is positioned in the room as if it were inside the patient's body; note that the existence of the latter is not declared in the quadrics file. The room is filled with air, which is defined as the transparent body for this problem.
+
+This configuration implies that a voxel with spatial coordinates corresponding to points located in the air quadric body (or module) will 'substitute' the air by the correponding material filling the voxel. The metal is not the transparent material and, therefore, the brachytherapy source effectively removes those voxels that happen to be at the same location as the source material. In short, voxels prevail over the air, and the rest of materials prevail over voxels. The geometry effectively simulated is thus what was initially conceived, that is, a concrete (quadric) room contains a (voxelized) patient who, surrounded by air, stands in the room and contains in his body a metallic (quadric) source.
+
+* A voxel can be only partially immersed in the transparent material. In this case, only a fraction of the voxel volume effectively exists. The rest of it is occupied by the non-transparent material defined in the quadric geometry. In the previous example this happens to those voxels occupying volumes that partially coincide with the source and partially with the air---or with concrete and air, e.g., the feet soles.
+
+The former observation implies that, for partially overlapped voxels, the computation of their masses is not trivial. It is done during penEasy initialization by integrating the mass density over (the existing fraction of) the voxel volume. The accuracy with which this integration is performed can be controlled by the user via the integer value entered in the GRANULARITY field of the config file. More specifically, a number of threads equal to the square of GRANULARITY is cast through each voxel along the z axis, thus determining how densely the voxel is scanned to compute the integral. As a rule of thumb, the granularity should be set to 3*sqrt(Av/Aq), where Av is the area of the voxel face perpendicular to the z axis and Aq is the cross section, also perpendicular to z, of the smallest quadric element to be detected inside a voxel. Notice that, when both geometry models are active, larger granularities entail longer initialization times. A reasonably low value is GRANULARITY=10; larger values should be used for spiky quadric geometries. The granularity can not be smaller than 2.
+
+* As discussed above, the reference frame S is completely determined by the voxels bounding box. Thus, when voxels and quadrics are combined the quadric geometry must also be referred to this frame S by having recourse, if necessary, to the appropriate rotations and translations of the quadric objects.
+
+
+>>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

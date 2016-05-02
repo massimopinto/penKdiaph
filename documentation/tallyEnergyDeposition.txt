@@ -1,0 +1,8 @@
+TALLY ENERGY DEPOSITION
+
+* The energy deposited per simulated history in each material is reported. Note that the overall uncertainty used to compute simulation efficiency refers to the DETECTION MATERIAL only.
+
+* The RELATIVE UNCERTAINTY REQUESTED (specified as a percentage) is used as a criterion to decide when to stop the simulation (see Instructions in penEasy.in).
+
+>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+

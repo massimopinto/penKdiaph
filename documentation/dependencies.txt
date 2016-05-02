@@ -1,0 +1,58 @@
+>>> DEPENDENCIES FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Description:
+  This file lists the PENELOPE routines and PENELOPE common blocks used by penEasy. Its purpose is to help maintain the penEasy code when changes in PENELOPE are introduced. Note that dependencies on PENELOPE's common blocks that have been 'modularized' in PENAUX and USEd as modules in the other penEasy files are not listed here, since to maintain the latter only modifications in PENAUX must be done. The use of the standard modules PENELOPE, TRACK, PENGEOM and PENVARED are not listed either for brevity. penEasy files with no dependencies of the type described above are not listed.
+
+Last update:
+  2015-02-05
+
+- penaux.f
+  from PENELOPE:
+    common /COMPOS/
+    common /SECST/
+    PEINIT
+    PANAR
+  from PENGEOM:
+    common /QSURF/
+    common /QTREE/
+    GEOMIN
+  from RITA:
+    common /RSEED/
+  from PENH: ! Protons
+    common /CSIMPH/
+    PHINIT
+
+- penEasy.F
+  from PENELOPE:
+    CLEANS
+    START
+    SECPAR
+    JUMP
+    KNOCK
+  from PENVARED:
+    JUMPF
+    KNOCKF
+  from PENH: ! Protons
+    JUMPH
+    KNOCKH
+
+- penvox.f
+  from PENGEOM:
+    STEP
+    LOCATE
+
+- sourceBoxIsotropicGaussSpectrum.f
+  from PENELOPE:
+    STORES
+    RAND
+  from PENGEOM:
+    LOCATE
+
+- sourcePhaseSpaceFile.F
+  from PENELOPE:
+    STORES
+  from PENGEOM:
+    LOCATE
+
+
+>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

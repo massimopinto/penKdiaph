@@ -1,0 +1,9 @@
+TALLY FLUENCE TRACK LENGTH
+
+* The fluence spectrum integrated over the volume of the declared DETECTION MATERIAL is calculated. The fluence is reported per unit simulated history. Its units are cm^3*particles/(eV*cm^2) = particles*cm/eV. To obtain it, the track length estimator is used, that is, the distance travelled by each particle type in the detector is tallied as a function of the energy.
+
+* The spectrum is obtained by dividing the interval [EMIN,EMAX] (in eV) in the specified No. OF E BINS. Optionally, a logarithmic scale can be used for the energy, which is indicated by adding the keyword 'LOG' after the number of bins. To facilitate the preparation of graphs with steps two energies are printed in each row, namely, the low end and the middle point of each bin.
+
+* The RELATIVE UNCERTAINTY REQUESTED (specified as a percentage) is used as a criterion to decide when to stop the simulation (see Instructions in penEasy.in).
+
+>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

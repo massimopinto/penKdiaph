@@ -1,0 +1,109 @@
+TALLY PIXELATED IMAGING DETECTOR
+
+A pixelated image of the radiation field impinging upon the detector is created. The identification of the detector body, the size and number of pixels, the filtering of photons according to the interactions they have undergone and the selection of the detection mode and its configuration are described below in the order the data appears in the configuration file.
+
+
+>>>> DETECTOR POSITION AND REFERENCE FRAME >>>>>>
+
+* To place the detector, the code scans the list of bodies (and modules) introduced in the PENGEOM geometry file (GEO file hereafter). The detector is identified as the body or module that is made of the material introduced in the field DETECTION MATERIAL of the config file. If there is more than one body or module made of DETECTION MATERIAL, the *last* one listed in the GEO file is chosen. Hereafter we shall refer to this body or module as DETBODY.
+
+* In order for DETBODY to be a valid detector, the following considerations apply:
+
+  (i) In the GEO file, DETBODY must be limited by, at least, four planes forming a rectangular box, that is, by two mutually perpendicular pairs of parallel planes. The space delimited by these four planes will be called the detector box.
+
+  (ii) In the GEO file, these four planes must be the first four entries appearing in the list of surfaces limiting DETBODY---additional limiting surfaces and bodies can be introduced after them. If we call P1 the first introduced plane, P2 the second and so on up to P4, then P1 and P2 must be parallel. P3 and P4 must be parallel and perpendicular to the pair P1-P2. The following example illustrates the idea.
+
+  In the penEasy config file:
+      [SECTION TALLY PIXELATED IMAGING DETECTOR v.2014-12-01]
+      ON                              STATUS (ON or OFF)
+      2                               DETECTION MATERIAL
+
+  The detector is defined as a module in the GEO file:
+      MODULE  (  37)
+      MATERIAL(   2)
+      SURFACE (   9), SIDE POINTER=(+1)   <- The first encountered limiting surface is taken as P1; must be a plane
+      SURFACE (  10), SIDE POINTER=(-1)   <- This is taken as P2; must be plane parallel to P1
+      SURFACE (  11), SIDE POINTER=(+1)   <- This is P3; must be a plane perpendicular to P1 and P2
+      SURFACE (  12), SIDE POINTER=(-1)   <- This is P4; must be a plane parallel to P3
+      SURFACE (   7), SIDE POINTER=(+1)   <- The rest of surfaces are irrelevant for the current discussion; notice that
+      SURFACE (   8), SIDE POINTER=(-1)      the identification of P1..P4 has nothing to do with the surface labels.
+
+  (iii) The use of quadric equations of the type x^2-1=0 to define pairs of parallel planes (x=+1 and x=-1 in the previous example) with a single PENGEOM surface is not allowed.
+
+These conditions are tested by the initialization routine. An error message is issued and the execution aborted if they are not fulfilled.
+
+* A reference frame, named Sdet hereafter, attached to the detector box is considered. Sdet is implicitly defined by P1, P2, P3 and P4 as follows: in Sdet, P1 is assumed to be the plane x=0; P2 is the plane x=xmax, the higher end of the detector box along x, or 'x top face' for brevity; P3 is y=0; and P4 is y=ymax, the y top face. Put in other words, P1 and P2 are perpendicular to the x axis of Sdet, whereas P3 and P4 are perpendicular to the y axis. This defines the direction and orientation of the two axis---notice that their exact positions are not defined until z and the origin are set. The z axis of Sdet is defined as the intersection between P1 and P3. The position of the origin of Sdet is irrelevant (it can be anywhere along its z axis), since pixels will be specified by giving only their x and y coordinates in Sdet (see below), which are not altered by displacing the origin or coordinates along z.
+
+* The previous scheme provides a natural, simple and intuitive way of defining the detector. Summarizing, it is defined as a 3D rectangular box limited by at least for planes---here named P1,...,P4 according to the order in which they are introduced in the GEO file. Two additional planes will usually be employed to 'close' the 3D box, thus creating a parallelepiped. The direction of the x and y axis are defined as the perpendiculars to P1 and P3, respectively, and the z axis is the intersection P1-P3.
+
+
+>>>> PHOTON INTERACTION FILTER >>>>>>>>>>>>>>>>>>
+
+* Photons arriving at the detector can be filtered according to the interactions they have undergone. This is defined by the user in the field named FILTER PHOTON INTERACTION, which allows the following options:
+
+  0: no filter is applied. This is the option by default.
+
+ -1: only unscattered photons are accepted, i.e., those that are emitted from the source and reach the detector without having interacted.
+
+  1: selects photons that have suffered exactly one Rayleigh interaction before reaching the detector.
+
+  2: selects photons that have suffered exactly one Compton interaction before reaching the detector.
+
+  3: selects secondary photons, that is, those that are not emitted from a source. Note: photons initially contained in a PSF source do not qualify for this filter; they are considered unscattered particles even if they were created as a result of an interaction (e.g., bremsstrahlung radiation) during the simulation that produced the PSF. (See PSF source documentation for further details on PSF sources.)
+
+  9: selects photons that have experienced two or more interactions, or secondaries (in the sense described in the previous item) that have experienced one or more.
+
+For example, setting FILTER PHOTON INTERACTION equal to 2 means that the image produced corresponds to photons that have been Compton scattered exactly once. Notice that charged particle contributions are also included in the image, regardless of their origin. If desired, the latter can be avoided by simply defining a body covering the detector with an infinite (very large) absorption energy for charged particles.
+
+The activation of any of these filters requires that the absorption energies in the detection material, both for photons and charged particles, be set to infinity (a value larger than 1 GeV). Failure to do so will result in an error message and a program abort.
+
+The activation also implies the use of the user-definable variable ILB(5) from PENELOPE, a fact that must be taken into account by those users planning to adapt their own sources and tallies.
+
+
+>>>> PIXELS SIZE AND NUMBER >>>>>>>>>>>>>>>>>>>>>
+
+* The image is reported as a matrix of pixels (for 'picture element'). Each pixel, which can be thought of as an elemental detector, is a (usually small) rectangular portion of the detector box with its sides parallel to the x and y axis of Sdet. Its dimensions along these axis will be called dx and dy. Pixels are located in the first quadrant of the x-y plane of Sdet, with the first pixel covering the region from x=0 to x=dx and from y=0 to y=dy.
+
+* In the config file, the value of dx is introduced in the field named X-PIXEL SIZE. The field No. X-PIXELS allows users to enter the number of pixels along the x axis of Sdet, say Nx. Notice that Gx=Nx*dx is the size along x of the grid of pixels. Alternatively, users may opt to set one of the two values, Nx or dx (but not both!), equal to zero. In this latter case, the size Gx is assumed to be equal to the distance between the planes P1 and P2 (see above) and the parameter that was set to zero (either Nx or dx) is automatically recomputed from Gx=Nx*dx. Similar fields and definitions are provided in the config file for the y axis.
+
+
+>>>> DETECTION MODES >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+* The field named DETECTION MODE allows users to select among three possibilities: ENERGY INTEGRATING, PHOTON COUNTING and PHOTON ENERGY DISCRIMINATING. Their meaning are described below.
+
+* In energy integrating mode the image 'signal' is the energy deposited per unit pixel area and per simulated history. Therefore, the signal is reported, for each pixel, in units of eV/cm^2 per history.
+
+* In photon counting mode the image signal is the number of counts per unit pixel area and per simulated history. A count is scored when, after the completion of a history, the energy deposited in a pixel exceeds the threshold value defined in the field ENERGY DEPOSITION THRESHOLD. So, the reported units are counts/cm^2 per history.
+
+* In photon energy discriminating mode a full pulse height spectrum is tallied for each pixel, that is, the energy deposited is classified into energy bins. The quantity reported for each pixel is the number of counts, per unit pixel area and per simulated history, in each energy bin, divided by the bin width. Thus, the reported units are counts/(cm^2.eV) per history. Energy bins are determined by the EMIN, EMAX and the No. OF E BINS indicated in the corresponding fields of the config file.
+
+* Note that in all cases the image is reported per unit pixel area. This reduces the dependence of the reported quantity on the pixel size.
+
+* For all modes, the energy deposited can be convolved with a Gaussian function of variable width. This can be used to mimic the behavior of, e.g., a real scintillator detector, where the overall effect of the generation of light, its conversion into electric charges (electrons) at the photocathode and the amplification of this electrical signal in the photomultiplier tube can be modeled as a random process with Gaussian dispersion.
+
+The full width at half maximum (FWHM, in eV) of the Gaussian is defined as
+
+  FWHM[eV] = sqrt(A+B*E[eV])
+
+where E (eV) is the energy deposited and A (eV^2) and B (eV) are user defined parameters introduced in the field ENERGY RESOLUTION. Notice that a constant width can be specified by setting B=0. A typical detector introduces a widening that can be described with the former expression with some finite value for B.
+
+* Please notice that some variance reduction techniques may bias results in both photon counting and energy discriminating modes. This is not a limitation of penEasy or PENELOPE, but an unavoidable consequence of the nature of the tally.
+
+
+>>>> REPORT FORMATS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+* Three report formats are available, namely, COLUMNAR, MATRIX and BINARY. Gnuplot scripts for selected combinations of detection mode and output format are provided in the scripts directory of penEasy. In every case, the file name of the Gnuplot script coincides (except for the name extension '.dat') with the file name of the output data file for which the script is intended.
+
+* In columnar format an output file containing the image signal for each pixel and its associated statistical uncertainty is written in plain text (ASCII) format. Each record (line) includes pixel indices and coordinates. To facilitate the preparation of graphs with steps, two values are printed for each coordinate of each pixel, namely, the low end and the middle point of the pixel. Notice that in energy discriminating mode energy bins are also printed.
+
+* In matrix format an output file containing the image signal for each pixel is written in plain text. Each data row in the file represents a line of pixels with constant x coordinate (in the Sdet frame). No indices, coordinates or uncertainties are printed, although a header indicates the coordinate of each column. This format is not available in energy discriminating mode, since this mode produces an output that is essentially 3D and, therefore, not naturally amenable to a printout in matrix format.
+
+* The main advantage of the former two formats is that they are human-readable and well suited for graphical representation, e.g. with Gnuplot. However, given the fact that commercially available detectors are already in the tens of megapixels range, these formats may not be optimal when disk storage is an issue. In the latter case, the binary format is more convenient as it produces an output file of considerably smaller size.
+
+
+>>>> STOPPING CRITERIA >>>>>>>>>>>>>>>>>>>>>>>>>>
+
+* The value entered in the field RELATIVE UNCERTAINTY REQUESTED (specified as a percentage) is used as a criterion to decide when to stop the simulation. See further instructions in the file penEasy.in.
+
+
+>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

@@ -1,0 +1,19 @@
+TALLY PULSE HEIGHT SPECTRUM
+
+* The energy deposited by each history in the specified DETECTION MATERIAL is classified into energy bins (pulse height spectrum). More precisely, the quantity reported is the number of events per simulated history in each bin, divided by the bin width. This coincides with the normalized probability distribution of the deposited energy.
+
+* Energy bins are determined by the EMIN, EMAX (both in eV) and the No. OF E BINS indicated in the config file. To facilitate the preparation of graphs with steps two energies are printed in each row, namely, the low end and the middle point of each bin.
+
+* The simulated pulse height spectrum can be convolved with a Gaussian function of variable width. This is useful, e.g., to mimic the behavior of a real scintillator detector, where the overall effect of the generation of light, its conversion into electric charges (electrons) and the amplification of this electrical signal can be modeled as a random process with Gaussian dispersion.
+
+The full width at half maximum (FWHM, in eV) of the Gaussian is defined as
+
+  FWHM[eV] = sqrt(A+B*E[eV])
+
+where E (eV) is the energy deposited and A (eV^2) and B (eV) are user defined parameters. Notice that a constant width can be specified by setting B=0. A typical detector introduces a widening that can be described with the former expression with some finite value for B.
+
+* The RELATIVE UNCERTAINTY REQUESTED (specified as a percentage) is used as a criterion to decide when to stop the simulation (see Instructions in penEasy.in).
+
+* Please notice that some variance reduction techniques may bias the calculated distribution. This is not a limitation of penEasy or PENELOPE, but an unavoidable consequence of the nature of the tally.
+
+>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

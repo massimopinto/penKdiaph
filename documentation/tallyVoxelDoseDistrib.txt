@@ -1,0 +1,13 @@
+TALLY VOXEL DOSE DISTRIBUTION
+
+* The absorbed dose per simulated history in each volume element (voxel) is tallied for the region of interest (ROI) defined in the config file. The ROI is defined in terms of a range of x, y and z indices.
+
+* If the ROI for a given coordinate is set to (0,0), then the effective ROI goes from 1 up to the last voxel.
+
+* If PRINT MASS is set to 1 the mass of each voxel is also printed. It is evaluated during the initialization of the code by integrating numerically the mass density over the voxel volume.
+
+* If 'PRINT COORDINATES' is set to 1, the coordinates for each voxel are printed in the report; if it is set to 0, they are not. If it is set to -1 no coordinates are printed and the data is written in binary format to save disk space and CPU time. In the latter case, a pair (dose,uncert) is written in binary for each bin following the same order it is written when printing in text mode. When the output data is in text format, and to facilitate graphical representations, two values for each cartesian coordinate are given in each row, namely, the low end and the middle point of each voxel. Notice that, in order to correctly interpret the various columns in the output file, the gnuplot script for this tally assumes that this option has been set to 1.
+
+* The RELATIVE UNCERTAINTY REQUESTED (specified as a percentage) is used as a criterion to decide when to stop the simulation (see Instructions in penEasy.in).
+
+>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

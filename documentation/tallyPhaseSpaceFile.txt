@@ -1,0 +1,17 @@
+TALLY PHASE SPACE FILE (PSF)
+
+* The state of all particles entering (or created inside) the specified DETECTION MATERIAL is written to the file indicated in the PSF FILENAME field. More precisely, the variables written are, in the quoted order, kpar, e, x, y, z, u, v, w, wght, dn, ilb(1), ilb(2), ilb(3), ilb(4) and ilb(5) (i.e. type of particle, energy, position, direction, statistical weight, and ILB labels).
+
+* The meaning of each variable is explained in the PENELOPE manual, except DN, which is the increment in the number of top primary histories since the previous record in the PSF was written. Thus DN=0 indicates that the current particle belongs to the same history as the previous one and DN=3, for instance, implies that it was necessary to simulate 3 additional primary histories until a particle reached again the PSF scoring region.
+
+* The sum of all the DNs of a PSF should coincide with the number of simulated histories employed to generate that PSF. This consistency check may fail if the last simulated history (or histories) do not score any particle in the PSF. Although this match is not critical for most applications, it may cause interpretation problems with the bookkeeping of the number of histories. To avoid this issue, when the last history does not contribute to the PSF one last particle is artificially appended. This particle is identical to the last real scored particle, except that its statistical weight (WGHT) is set to zero. This will effectively make nil the contribution to any quantity of interest that could be subsequently calculated with the PSF in question and that takes WGHT into account. We refer to this last 'fake' particle as endino. Endinos are only employed when the penEasy native (ASCII) format is used (see below); if the IAEA format is used instead, endinos are not appended since in this case the total number of histories is already stated in the header file that must accompany the PSF.
+
+* Notice that the PSF is written in plain text (ASCII) format and that each variable is separated from the next by one or more spaces. Given that a non-negligible fraction of the time needed to simulate each history is spent accessing the information in the PSF record, this format is obviously not optimized for speed nor for storage volume. Its main advantage is that it is human-readable and directly amenable to graphical representation, e.g. with gnuplot. However, for production runs, a binary format ("unformatted", in the Fortran jargon) is more convenient. See the file sourcePhaseSpaceFile.txt for a discussion on how to implement the latter following the so-called IAEA standard format.
+
+* The simulation of particles reaching the PSF detector must be terminated in order to ensure the consistency of the simulation. Failing to do so would allow the scored particle to generate secondaries downstream which, in turn, could also reach the PSF and be scored. These secondary particles would then be doubly counted since, in the subsequent simulation, the primary read from the PSF would re-generate them again.
+
+To make sure that this situation does not occur, the three absortion energies (photons, e- and e+) for the detection material must be set to infinity, namely, to a value larger than the maximum energy of particles emitted by the source. Otherwise, the program stops after issuing an error message.
+
+* The generated PSFs do not include information on photon polarization.
+
+>>>> END OF FILE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
