@@ -1,0 +1,27 @@
+# gnuplot script file for penEasy
+# Last update:
+#   2012-06-01 by JS
+
+# Pause interval (-1 stops execution):
+frameRate = -1
+
+pause -1 "The voxels file MUST be called voxels.vox and the material must be in column 1."
+pause -1 "The file header in voxels.vox MUST be removed or commented out for this script to work properly."
+
+set size ratio -1
+set pm3d corners2color c1 map implicit
+# In case you want a gray scale plot:
+# set palette gray negative
+
+unset key
+set title "Voxels Material Map"
+set xlabel "xIndex"
+set ylabel "yIndex"
+
+do for [i=0:30000]{
+  set label 2 sprintf("z-slice index = %i",i+1) at screen 0.5,0.95 center
+  splot "voxels.vox" index i using 1
+  pause frameRate "Press OK"
+}
+
+# EOF

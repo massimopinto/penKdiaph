@@ -1,0 +1,326 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>> This is penEasy v.2015-05-30 >>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+Program started on  4 Dec 2015  17:09:19                                                                               
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION CONFIG v.2013-03-18]
+No. of histories requested: 
+ 1.00000E+07
+Allotted time (s):
+ 1.00000E+30
+Update interval:
+ 1.00000E+02
+Random seeds:
+ 1 1
+Simulation dump requested. Dump file name:
+ penEasy.dmp                                                                     
+Interval between dumps:
+ 1.80000E+03
+>>>> Config initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SOURCE BOX ISOTROPIC GAUSS SPECTRUM v.2014-12-21]
+Memory used by static arrays (MB):
+  7.68000E-01
+Particle type:
+ 1
+Photon polarization physics:
+  not activated
+Coordinates of box center (cm):
+  0.00000E+00  0.00000E+00 -1.00000E+02
+Box sides (cm):
+  0.00000E+00  0.00000E+00  0.00000E+00
+FWHMs of x and y distribs. (cm):
+  0.00000E+00  0.00000E+00
+Euler angles for box rotation (deg):
+  0.00000E+00  0.00000E+00  0.00000E+00
+Translation of box center (cm):
+  0.00000E+00  0.00000E+00  0.00000E+00
+Source material:
+ 0
+Direction vector (u,v,w):
+  0.00000E+00  0.00000E+00  1.00000E+00
+Polar angle interval, [theta0,theta1](deg):
+  0.00000E+00  2.86241E+00
+Azimuthal angle interval, phi0 and Dphi (deg):
+  0.00000E+00  3.60000E+02
+Apply to direction same rotation use for box position?
+ Yes
+Reading energy spectrum from config file.
+  Energy(eV)  Relat.Probability   Bin#
+  1.00000E+07  1.00000E+00 1
+  1.00000E+07 -1.00000E+00 2
+No. of bins read:
+ 1
+Sum of relative probabilities before normalization:
+  1.00000E+00
+FWHM of Gaussian energy distrib. (eV):
+  0.00000E+00
+>>>> BIGS source initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SOURCE PHASE SPACE FILE v.2009-06-15]
+>>>> Source Phase Space File is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION PENGEOM+PENVOX v.2009-06-15]
+ 
+>>>> Initializing quadric geometry >>>>
+Opening quadric geometry file:
+ phantom.geo                                                                     
+Now calling PENGEOM...
+ 
+>>>> PenEasy SAMPLE QUADRICS (PENGEOM) GEOMETRY FILE >>>>               
+                                                                        
+Short description:                                                      
+  Semi-infinite water phantom.                                          
+                                                                        
+Last update:                                                            
+  2004-10-24 by JS.                                                     
+                                                                        
+Comments:                                                               
+  Adapted from the PENELOPE distribution. For detailed instructions on t
+  data format used in this file refer to the PENELOPE manual.           
+                                                                        
+Sketch:                                                                 
+                      ^                                                 
+                     /|\ z-axis                                         
+                      |                                                 
+             water    |                                                 
+              (mat1)  |                                                 
+                      |                                                 
+      111111111111111111111111111111111---->  x-axis                    
+                                                                        
+             vacuum                                                     
+                                                                        
+>>>> END OF HEADER >>>>                                                 
+(All the above text is ignored by PENELOPE; the actual geometry definiti
+begins at the first line of zeroes.)                                    
+                                                                        
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   1)   REDUCED FORM                                        
+INDICES=( 0, 0, 0, 1, 0)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   1)   water phantom                                       
+MATERIAL(   1)
+SURFACE (   1), SIDE POINTER=( 1)
+0000000000000000000000000000000000000000000000000000000000000000
+END      0000000000000000000000000000000000000000000000000000000
+
+
+
+*****************************************
+****     PENGEOM (version 2014)      ****
+****  Constructive Quadric Geometry  ****
+*****************************************
+
+
+
+************  Genealogical tree. 
+
+
+*** BODY   =    1,  KMOTH =    2,  MAT =  1
+KSURF =    1    2
+KFLAG =    2    1
+
+*** MODULE =    2,  KMOTH =    0,  MAT =  0
+KDGHT =    1    2
+KSURF =    2    1
+KFLAG =    1    4
+
+
+************  Adequacy of the geometry definition.
+
+The largest number of bodies in a module or
+     bodies limiting a single body is ............    2
+
+The largest number of limiting surfaces for
+     a single body or module is ..................    2
+
+
+The simulation of this geometry will be relatively fast,
+     no further optimization seems to be required.
+
+************  The end.
+ 
+>>>> Quadric geometry initialization finished >>>>
+ 
+No voxels geometry file defined.
+ 
+No. of materials referenced in the geometry:
+ 1
+ 
+>>>> Geometry initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION PENELOPE v.2009-10-01]
+ 
+MAT#  FILENAME             EABS(e-)  EABS(ph)  EABS(e+)  C1        C2        WCC       WCR       DSMAX
+ 1    water.mat            1.000E+05 1.000E+04 1.000E+05 1.000E-01 1.000E-01 1.000E+05 1.000E+04 1.000E+30
+ 
+Now calling PEINIT...
+ 
+
+ **********************************
+ **   PENELOPE  (version 2014)   **
+ **********************************
+
+ EMIN = 1.0000E+04 eV,  EMAX = 1.0010E+07 eV
+
+
+ **********************
+ **   1st material   **
+ **********************
+
+ Material data file: water.mat           
+
+ *** Simulation parameters:
+     Electron absorption energy = 1.0000E+05 eV
+       Photon absorption energy = 1.0000E+04 eV
+     Positron absorption energy = 1.0000E+05 eV
+      C1 = 1.0000E-01,       C2 = 1.0000E-01
+     WCC = 1.0000E+05 eV,   WCR = 1.0000E+04 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: WATER, LIQUID  (278)                                          
+ Mass density = 1.00000000E+00 g/cm**3
+ Number of elements in the molecule =  2
+    Element: H  (Z= 1), atoms/molecule = 2.00000000E+00
+    Element: O  (Z= 8), atoms/molecule = 1.00000000E+00
+ Mean excitation energy = 7.50000000E+01 eV
+ PENELOPE (v. 2014)  End of material data file ........
+ 
+CPU time used to init PENELOPE (s):
+      4.76
+ 
+>>>> PENELOPE initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY VOXEL DOSE v.2014-12-27]
+>>>> Tally Voxel Dose Distribution is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY SPATIAL DOSE DISTRIB v.2009-06-15]
+xmin,xmax,nx:
+  0.00000E+00  0.00000E+00 0
+ymin,ymax,ny:
+  0.00000E+00  0.00000E+00 0
+zmin,zmax,nz:
+  0.00000E+00  7.00000E+00 40
+Total number of megabins:
+  4.00000E-05
+Print coordinates:
+ yes
+Relative uncertainty (%) requested:
+  1.00000E+00
+Memory used to allocate arrays (MB):
+  1.60000E-03
+>>>> SDD tally initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY CYLINDRICAL DOSE DISTRIB v.2009-06-15]
+Memory used by static arrays (MB):
+  4.00000E+00
+rmin,rmax,nr:
+  0.00000E+00  8.00000E+00 80
+zmin,zmax,nz:
+  0.00000E+00  7.00000E+00 40
+Print coordinates:
+ yes
+Relative uncertainty (%) requested:
+  0.00000E+00
+>>>> CDD tally initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY SPHERICAL DOSE DISTRIB v.2009-06-15]
+Memory used by static arrays (MB):
+  1.28000E+00
+>>>> Tally Spherical Dose Distrib is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY ENERGY DEPOSITION v.2012-06-01]
+Memory used by static arrays (MB):
+  2.40000E-04
+Detection material set to:
+ 1
+Relative uncertainty (%) requested:
+  0.00000E+00
+>>>> EDP tally initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PULSE HEIGHT SPECTRUM v.2012-06-01]
+Memory used by static arrays (MB):
+  5.12000E-01
+>>>> Tally Pulse Height Spectrum is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PIXELATED IMAGING DETECTOR v.2015-02-06]
+>>>> Tally Pixelated Imaging Detector is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY FLUENCE TRACK LENGTH v.2012-06-01]
+Memory used by static arrays (MB):
+  3.58400E+00
+>>>> Tally Fluence Track Length is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PHASE SPACE FILE v.2009-06-15]
+>>>> Tally Phase Space File is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PARTICLE CURRENT SPECTRUM v.2009-06-15]
+Memory used by static arrays (MB):
+  3.07200E+00
+>>>> Tally Particle Current Spectrum is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PARTICLE TRACK STRUCTURE v.2009-06-15]
+Number of history tracks to display:
+ 100
+>>>> PTS tally initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION INTERACTION FORCING v.2009-06-15]
+>>>> Interaction Forcing is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SPLITTING v.2015-05-30]
+>>>> Particle splitting is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION RUSSIAN ROULETTE v.2009-06-15]
+>>>> Russian roulette is OFF >>>>
+ 
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+init: INITIALIZATION ENDED
+Elapsed real time:     4.79 s
+Elapsed CPU time :     4.79 s
+Memory used by penEasy arrays: 1.5E+01 MB
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+report: SIMULATION ENDED
+Results have been written to the corresponding DAT files.
+The requested uncertainty has NOT been reached.
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+Last random seeds:
+ 2057251772 409891756
+Elapsed real time (s), excluding init:
+  4.73063E+03
+Elapsed CPU time (s), excluding init:
+  4.73142E+03
+Each report update took (in CPU s):
+  2.44141E-02
+No. of histories simulated:
+          10000000.
+CPU Speed (histories/s):
+  2.11353E+03
+ 
+Program ended on  4 Dec 2015  18:28:15                                                                               
+ 
+Have a nice day.

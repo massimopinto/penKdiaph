@@ -1,0 +1,28 @@
+# gnuplot script file for penEasy
+# Last update:
+#   2014-12-18 by JS
+
+# Pause interval (-1 stops execution):
+frameRate = -1
+# Factor from eV to keV:
+f = 1.0e-3
+invf = 1.0e3
+
+set pm3d hidden3d 1 implicit
+unset surface
+
+set style line 1 linetype -1 linewidth 0.3 pointtype 7 pointsize 0.5
+unset key
+set title "Imaging detector in E discriminating (spectrum) mode\n(counts/(cm^2.keV) per history)"
+set xlabel "Pixel x (cm)" rotate parallel
+set ylabel "Energy (keV)" rotate parallel
+set zlabel "Spectrum" offset -5.0 rotate parallel
+set zrange [0:]
+set xyplane at 0.0
+
+do for [i=0:30000]{
+  splot "tallyPixelImageDetectED.dat" index i using 3:($9*f):($10*invf)
+  pause frameRate sprintf("y-row index = %i. Press OK",i+1)
+}
+
+# EOF

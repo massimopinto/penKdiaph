@@ -1,0 +1,31 @@
+# gnuplot script file for penEasy
+# Last update:
+#   2014-12-12 by JS
+
+# Pause interval (-1 stops execution):
+frameRate = -1
+
+# Factor from eV to keV:
+f = 1.0e-3
+
+set pm3d hidden3d 1 implicit
+unset surface
+set contour
+# In case you want a gray scale plot:
+# set palette gray negative
+
+set style line 1 linetype -1 linewidth 0.3 pointtype 7 pointsize 0.5
+unset key
+set title "3D Dose Distribution\n(keV/g per history)"
+set xlabel "x (cm)" rotate parallel
+set ylabel "y (cm)" rotate parallel
+set zlabel "dose" rotate parallel
+
+set zrange [0:]
+
+do for [i=0:30000]{
+  splot "tallySpatialDoseDistrib-3D.dat" index i using 2:5:($10*f) with lines
+  pause frameRate sprintf("z-slice index = %i. Press OK",i+1)
+}
+
+# EOF

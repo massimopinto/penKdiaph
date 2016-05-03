@@ -1,0 +1,31 @@
+# gnuplot script file for penEasy
+# Last update:
+#   2014-12-18 by JS
+
+# Factor from eV to keV:
+f = 1.0e-3
+
+# Set the scaling factor for dy/dx (with reversed sign):
+set size ratio -1.0
+# In case you want a gray scale plot:
+# set palette gray
+
+unset key
+set title "Imaging detector in energy integrating mode\n(keV/cm^2 per history)"
+set xlabel "Pixel x (cm)"
+set ylabel "Pixel y (cm)"
+
+plot [0:][0:] 'tallyPixelImageDetectEI.dat' using 3:6:($7*f) with image
+pause -1 "Press OK"
+
+
+##set title "Interpolated image"
+##
+### Determine voxel color from corner left-bottom:
+##set pm3d map corners2color c1 implicit
+### Automatic interpolation parameters:
+##set pm3d interpolate 0,0
+##splot 'tallyPixelImageDetectEI.dat' using 2:5:($7*f)
+##pause -1 "Press OK"
+
+# EOF

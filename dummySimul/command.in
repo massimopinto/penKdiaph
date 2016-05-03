@@ -1,0 +1,17 @@
+ 0   <- write here the command code
+     <- write here the command parameter, if any
+     <- repeat previous lines as many times as needed
+
+>>>> END OF INPUT >>>>
+
+Code  Parameter  What it does
+-----------------------------
+0     None       Nothing, keep going
+1     N          Reset No. of histories to N
+2     t          Reset simulation time to t seconds
+3     t          Reset update interval to t seconds
+4     t          Reset dump interval to t seconds
+9     <string>   Write <string> (<80 chars) to output
+
+>>>> END OF FILE >>>>
+

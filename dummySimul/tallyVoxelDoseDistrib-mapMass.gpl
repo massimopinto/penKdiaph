@@ -1,0 +1,32 @@
+# gnuplot script file for penEasy
+# Last update:
+#   2015-01-09 by JS
+
+pause -1 "This tally will work only if you set PRINT VOXELS MASS IN REPORT to yes."
+pause -1 "z slices are automatically displayed in sequence. For manual, set frameRate in script to -1."
+
+# Pause interval (use -1 to stop execution after each frame):
+frameRate = 0.2
+
+# Factor from eV to keV:
+f = 1.0e-3
+
+set size ratio -1
+set pm3d corners2color c1 map implicit
+# In case you want a gray scale plot:
+# set palette gray negative
+
+unset key
+set title "Voxel Mass (g)"
+set xlabel "x (cm)"
+set ylabel "y (cm)"
+
+set cbrange [0:]
+
+do for [i=0:30000]{
+  set label 2 sprintf("z voxel index = %i",i+1) at screen 0.5,0.95 center
+  splot "tallyVoxelDoseDistrib.dat" index i using 1:3:9
+  pause frameRate "Press OK"
+}
+
+# EOF

@@ -12,7 +12,7 @@
 !* email: josep.sempau@upc.es                                      *
 !* Universitat Politecnica de Catalunya, Barcelona, Spain          *
 !     * SEE COPYRIGHT NOTICE IN FILE README.txt                    *
-!                                                                  *      
+!                                                                  *
 !* Modifications by Massimo Pinto to calculate correction factors  *
 !* concerning the effects occurring in the diaphragm of the FACs   *
 !* in 2013 based on penEasy for penelope 2011                      *
@@ -88,15 +88,15 @@
 
 !************************************************
 ! Section specific to air in the free-air chamber
-!************************************************          
+!************************************************
           if ((mat.eq.1).or.(mat.eq.3)) then ! transport of particles in Air
            if ((kpar.eq.1).and.(ilb(1).eq.2).and.(ilb(2).eq.2)) ilb(5)=1 ! che accade qui?
             ! ilb(5)=1 is a label for primary depositions in Air.
             ! subsequent radiative losses with ilb(5)=1 should be substracted from the counters
             ! of the body in which the electron was first created (not where Bremmsstrahlung occurs)
              endif
-          
-          !!!!!! Codice in vigore fino al 19 Marzo 2013, quando Edsc veniva sempre zero [ilb(5)=3]  
+
+          !!!!!! Codice in vigore fino al 19 Marzo 2013, quando Edsc veniva sempre zero [ilb(5)=3]
           !if ((mat.eq.4).and.(kpar.eq.2)) then ! now starting transport of a photon created in the diaph
           !      if ((ilb(1).eq.2).and.(ilb(2).eq.2)) then ! It's a secondary photon, descending from a photon
           !          ilb(5)=4 ! fluorescence photon unless what happens below
@@ -110,7 +110,7 @@
           if ((mat.eq.4).and.(ilb(1).gt.1)) then ! Secondary particle in the diaphragm
             if (kpar.eq.2) then ! Photon
                 if (ilb(2).eq.2) then ! Fluorescence photon, was photoelectric effect of inner shell
-                    ilb(5)=4 ! fluorescence 
+                    ilb(5)=4 ! fluorescence
                 else if (ilb(2).eq.1) then
                     ilb(5)=4 ! fluorescence unless...
                     if (ilb(3).eq.4) ilb(5)=5 !  Bremsstrahlung in the diaphragm
@@ -124,9 +124,9 @@
                 ! As at March 20 (2014?) the E_del counter is slightly large, though. Kdel is about 0.994
             endif
           endif
-         
+
           call locatevox        ! Locate in voxels geometry (info not in PENELOPE's stack)
-          
+
           call tally(-99,-e)               ! The simulation of this particle begins
           if (absorb()) cycle particle     ! Check particle absorption
           call start                       ! Reset transport mechanics

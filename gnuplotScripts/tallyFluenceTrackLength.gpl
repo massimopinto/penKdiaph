@@ -1,0 +1,34 @@
+# gnuplot script file for penEasy
+# Last update:
+#   2010-06-01 by JS
+
+# Factor from keV to eV:
+f = 1.0e3
+
+set style line 1 linetype -1 linewidth 1 pointtype 7 pointsize 0.5
+
+# For a log-lin plot, uncomment the following two lines:
+# set logscale x
+# set mxtics 10
+
+set title "Positron Fluence Spectrum"
+set xlabel "energy[E] (keV)"
+set ylabel "p(E) (cm/keV per history)"
+plot "tallyFluenceTrackLength-positron.dat" using ($2/f):($3*f):($4*f) notitle with yerrorbars linestyle 1, \
+     "tallyFluenceTrackLength-positron.dat" using ($1/f):($3*f) notitle with steps linestyle 1
+pause -1 "Press OK"
+
+set title "Photon Fluence Spectrum"
+set xlabel "energy[E] (keV)"
+set ylabel "p(E) (cm/keV per history)"
+plot "tallyFluenceTrackLength-photon.dat" using ($2/f):($3*f):($4*f) notitle with yerrorbars linestyle 1, \
+     "tallyFluenceTrackLength-photon.dat" using ($1/f):($3*f) notitle with steps linestyle 1
+pause -1 "Press OK"
+
+set title "Electron Fluence Spectrum"
+set xlabel "energy[E] (keV)"
+set ylabel "p(E) (cm/keV per history)"
+plot "tallyFluenceTrackLength-electron.dat" using ($2/f):($3*f):($4*f) notitle with yerrorbars linestyle 1, \
+     "tallyFluenceTrackLength-electron.dat" using ($1/f):($3*f) notitle with steps linestyle 1
+pause -1 "Press OK"
+

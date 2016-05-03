@@ -17,4 +17,4 @@ Sempau J, Badal A and Brualla L 2011 A PENELOPE-based system for the automated M
 
 Salvat F, Fernandez-Varea J M and Sempau J 2011 PENELOPE-2011: A Code System for Monte Carlo Simulation of Electron and Photon Transport PENELOPE 2011 Workshop, Barcelona, Spain, 4-7 July 2011 pp 1–385
 
-Massimo Pinto, ENEA-INMRI 2014-2016
+Massimo Pinto, ENEA-INMRI 2014-2016.
