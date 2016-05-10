@@ -11,4 +11,4 @@ _PenKdiaph_ is a minor modification of the _penEasy_ package, whose Copyright is
 
 Permission to use, copy, modify and re-distribute copies of the _penEasy_ software (including all its files) or parts of it and its documentation for any purpose is hereby granted without fee, provided that this copyright notice appears in all copies. The Universitat Politecnica de Catalunya makes no representations about the suitability of this software for any purpose. It is provided "as is" without express or implied warranty.
 
-Massimo Pinto, [ENEA-INMRI](http://inmri.enea.it) 2014-2016.
+Massimo Pinto, [ENEA-INMRI](http://inmri.enea.it) 2013-2016.

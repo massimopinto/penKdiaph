@@ -57,11 +57,11 @@ Thank you for using PENELOPE/penEasy.
 
 References:
 
-[1] J. Baró, J. Sempau, J. M. Fernández-Varea and F. Salvat, PENELOPE: An algorithm for Monte Carlo simulation of the penetration and energy loss of electrons and positrons in matter, Nucl. Instr. and Meth. B 100 (1995) 31-46.
+[1] J. Barï¿½, J. Sempau, J. M. Fernï¿½ndez-Varea and F. Salvat, PENELOPE: An algorithm for Monte Carlo simulation of the penetration and energy loss of electrons and positrons in matter, Nucl. Instr. and Meth. B 100 (1995) 31-46.
 
-[2] F. Salvat, J.M. Fernández-Varea and J. Sempau, PENELOPE-2011: A Code System for Monte Carlo Simulation of Electron and Photon Transport, OECD-NEA, Issy-les-Moulineaux, France. Available from http://www.nea.fr.
+[2] F. Salvat, J.M. Fernï¿½ndez-Varea and J. Sempau, PENELOPE-2011: A Code System for Monte Carlo Simulation of Electron and Photon Transport, OECD-NEA, Issy-les-Moulineaux, France. Available from http://www.nea.fr.
 
-[3] J. Sempau, E. Acosta, J. Baró, J. M. Fernández-Varea and F. Salvat, An algorithm for Monte Carlo simulation of coupled electron-photon transport, Nucl. Instr. and Meth. B 132 (1997) 377-390.
+[3] J. Sempau, E. Acosta, J. Barï¿½, J. M. Fernï¿½ndez-Varea and F. Salvat, An algorithm for Monte Carlo simulation of coupled electron-photon transport, Nucl. Instr. and Meth. B 132 (1997) 377-390.
 
 *** Preferred citation for penEasy:
 

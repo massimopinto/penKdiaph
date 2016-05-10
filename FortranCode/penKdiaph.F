@@ -70,7 +70,7 @@
 
       write(*,'(a)') '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
       write(*,'(a)') '>>> Based on penEasy v.2015-05-30,>>>>'
-      write(*,'(a)') '>>> This is penkdiaph v.2015-12   >>>>'
+      write(*,'(a)') '>>> This is penKdiaph v.2016-05   >>>>'
       write(*,'(a)') '>>> Contributed by Massimo Pinto  >>>>'
       write(*,'(a)') '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
 
@@ -90,6 +90,7 @@
 ! Section specific to air in the free-air chamber
 !************************************************
           if ((mat.eq.1).or.(mat.eq.3)) then ! transport of particles in Air
+            ! Air surrounding the detection volume (material 1) or is the detection volume itself (material 3)
            if ((kpar.eq.1).and.(ilb(1).eq.2).and.(ilb(2).eq.2)) ilb(5)=1 ! che accade qui?
             ! ilb(5)=1 is a label for primary depositions in Air.
             ! subsequent radiative losses with ilb(5)=1 should be substracted from the counters

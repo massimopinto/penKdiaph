@@ -42,7 +42,7 @@
 !     &     edptmpdiaph
       real*8  edepdtr(maxk),edepdtr2(maxk),edptmpdiaph(maxK)
 !     Massimo: energy deposited from transmitted photons
-      end 
+      end
 
 !*******************************************************************
 !*******************************************************************
@@ -96,12 +96,12 @@
                 edptmpdiaph(5) = edptmpdiaph(5) +eloss*wght  ! scores Bremms photon's "Edbr"
                 ! This Bremsstrahlung photon was started in the diaphragm
             else if (ilb(5).eq.6) then
-                edptmpdiaph(6) = edptmpdiaph(6) +eloss*wght  ! scores electron's Edel    
+                edptmpdiaph(6) = edptmpdiaph(6) +eloss*wght  ! scores electron's Edel
             endif !  and so on...here you can add other ILB(5) conditions
-         endif   
+         endif
         edptmp(mat) = edptmp(mat)+eloss*wght  ! Update temporary E counter
 
-        
+
       else if (mode.eq.6) then                ! End-of-history bookkeeping
         do i=1,nmat                           ! For all existing materials
           if (edptmp(i).eq.0.0) cycle         ! Skip void counters
@@ -109,7 +109,7 @@
           edep2(i)  = edep2(i)+edptmp(i)**2
           edptmp(i) = 0.0                     ! Clear counter to start a fresh history
        enddo
-       
+
         do i=1,maxK             ! energy counters specific for each physical process
             if (edptmpdiaph(i).gt.0.0) then  ! Transfer temporary specific counter to mean and variance
                 edepdtr(i) = edepdtr(i) + edptmpdiaph(i)
@@ -162,7 +162,7 @@
       Kdfacnames(4) = 'Kdbr' ! Bremsstrahlung photons in the diaphragm
       Kdfacnames(5) = 'Kdel' ! Electrons exiting from the diaphragm
       Kdfacnames(6) = 'Kdiap'   ! this is the product of all Kfactors = Eprim/Etot
-      
+
       uncdone = 1
       if (.not.active) return
 
@@ -218,7 +218,7 @@
         sigmadtr = (dtr2-dtr**2)*invn
         sigmadtr = sqrt(max(sigmadtr,0.0))
         if (i.eq.1) sigmaeprim = sigmadtr ! stores uncertainty for Eprim separately
-        write(out,'(1x,i3,3x,a5,1x,es12.5,1x,es8.1)') 
+        write(out,'(1x,i3,3x,a5,1x,es12.5,1x,es8.1)')
      &   i,Edepnames(i),dtr,2.0*sigmadtr
         enddo
         write(out,'(a)')
@@ -226,7 +226,7 @@
         write(out,'(a,1x,es12.5,1x,a,1x,es12.5)')
      &   'Sum of specific depositions',edepssum,', fraction of edep',
      &   edepssum/(edep(matdet)*invn)
-      
+
       numer = edepdtr(1)
       denom = numer + edepdtr(2)
       Kdfactors(1) = numer / denom
@@ -243,10 +243,10 @@
       denom = denom + edepdtr(6)
       Kdfactors(5) = numer / denom
       Kdfactors(6) = edepdtr(1) / edep(matdet) ! a simplified expression for the 'complete' Kdiaph
-      
+
       sigma = Kdfactors(6) * sqrt((sigmaeprim/edepdtr(1)*invn)**2+
      &  (sigmadetmat/edep(matdet)*invn)**2)
-      
+
         ! Massimo writes output with correction factors
        write(out,'(a)')
        write(out,'(a)')
@@ -260,7 +260,7 @@
        write(out,'(a)')
      &   '####   counter   Kfactor'
         do i=1,maxk ! cycle through the corr factors
-       write(out,'(1x,i3,3x,a5,1x,es12.5)') 
+       write(out,'(1x,i3,3x,a5,1x,es12.5)')
      &   i,Kdfacnames(i),Kdfactors(i)
         enddo
        write(out,'(a)')
@@ -269,7 +269,7 @@
      &  Kdfacnames(maxK),'=',2.0*sigma
 
       ! Diaphragm correction factors calculations ended
-       
+
       ! Evaluate rel. uncertainty:
       q  = edep(matdet)*invn
       q2 = edep2(matdet)*invn
@@ -404,7 +404,7 @@ c$$$      enddo
       edepdtr(1:maxk) = 0.0
       edepdtr2(1:maxk) = 0.0
       ! End of diaphragm correction factors counters;
-      
+
       call EDPdump(0)  ! Sim restart file
 
       write(*,'(a)') '>>>> EDP tally initialization finished >>>>'

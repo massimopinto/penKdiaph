@@ -11,7 +11,7 @@ Burns D T and Kessler C 2009 Diaphragm correction factors for free-air chamber s
 
 This code is largely based on the _penEasy_ steering programme developed by the Universitat Politecnica de Catalunya [see LICENSE.md file](LICENSE.md). penEasy itself is conceived for opreation in conjunction with the PENELOPE code.
 
-The current version of penKdiaph is based on the 2014 version of penEasy.
+The current version of _penKdiaph_ is based on the 2014 version of _penEasy_. Please note how you can (and you are encouraged to do so) cite the work behind the two projects:
 
 Sempau J, Badal A and Brualla L 2011 A PENELOPE-based system for the automated Monte Carlo simulation of clinacs and voxelized geometries—application to far-from-axis fields *Med Phys* 38 5887, [DOI address](http://dx.doi.org/10.1118/1.3643029)
 
