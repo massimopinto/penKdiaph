@@ -4,7 +4,7 @@
 >>> Contributed by Massimo Pinto  >>>>
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  
-Program started on 10 May 2016  13:53:30                                                                               
+Program started on 10 May 2016  15:51:13                                                                               
  
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 [SECTION CONFIG v.2013-03-18]
@@ -45,7 +45,7 @@ Source material:
 Direction vector (u,v,w):
   0.00000E+00  0.00000E+00  1.00000E+00
 Polar angle interval, [theta0,theta1](deg):
-  0.00000E+00  2.86241E+00
+  0.00000E+00  7.16160E-01
 Azimuthal angle interval, phi0 and Dphi (deg):
   0.00000E+00  3.60000E+02
 Apply to direction same rotation use for box position?
@@ -688,7 +688,7 @@ Now calling PEINIT...
  PENELOPE (v. 2014)  End of material data file ........
  
 CPU time used to init PENELOPE (s):
-     24.55
+     28.29
  
 >>>> PENELOPE initialization finished >>>>
  
@@ -698,21 +698,7 @@ CPU time used to init PENELOPE (s):
  
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 [SECTION TALLY SPATIAL DOSE DISTRIB v.2009-06-15]
-xmin,xmax,nx:
-  0.00000E+00  0.00000E+00 0
-ymin,ymax,ny:
-  0.00000E+00  0.00000E+00 0
-zmin,zmax,nz:
-  0.00000E+00  7.00000E+00 40
-Total number of megabins:
-  4.00000E-05
-Print coordinates:
- yes
-Relative uncertainty (%) requested:
-  1.00000E+00
-Memory used to allocate arrays (MB):
-  1.60000E-03
->>>> SDD tally initialization finished >>>>
+>>>> Tally Spatial Dose Distrib is OFF >>>>
   
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 [SECTION TALLY CYLINDRICAL DOSE DISTRIB v.2009-06-15]
@@ -781,7 +767,7 @@ Memory used by static arrays (MB):
  
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 init: INITIALIZATION ENDED
-Elapsed real time:    24.78 s
-Elapsed CPU time :    24.59 s
+Elapsed real time:    30.90 s
+Elapsed CPU time :    28.33 s
 Memory used by penEasy arrays: 1.5E+01 MB
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

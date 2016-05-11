@@ -42,7 +42,9 @@
 ! Tallies:
 #include "tallyCylindricalDoseDistrib.F"
 #include "tallyEnergyDeposition.F"
-#include "tallyFluenceTrackLength.F"
+! Diaphragm Correction Factors from Massimo
+#include "tallyDiaphragmCorrections.F"
+ #include "tallyFluenceTrackLength.F"
 ! #include "tallyFluencePointDetect.F"  !! Under construction
 #include "tallyParticleCurrentSpectrum.F"
 #include "tallyParticleTrackStructure.F"
@@ -160,8 +162,7 @@
             ! Massimo adds control routine on labeling transmited photon
             ! as discussed via email with Josep Sempau in February 2013
             if ((mat.eq.4).and.(ilb(1).eq.1).and.(kpar.eq.2)) ilb(5)=2
-            ! a primary photon that passes through the diaphragm BEFORE any interaction
-            ! is labeled with ilb(5)=2
+            ! a primary photon that passes through the diaphragm -That is, it is found inside the diaphragm - BEFORE any interaction is labeled with ilb(5)=2
             ! Massimo stops
 
               call start                   ! New material => reset transport mechanics
@@ -189,10 +190,9 @@
 
             ! this is a call to tally specific for knockx() events.
             ! Incoherent or coherent scattering of primary photons here, AFTER tally (mimicking "cav-INMRI.f", line 507)
-            if((mat.eq.4).and.(kpar.eq.2).and.(ilb(1).eq.1)) then
+            if((mat.eq.4).and.(kpar.eq.2).and.(ilb(1).eq.1)) then ! primary photon in tungsten
             if ((icol.eq.1).or.(icol.eq.2)) ilb(5)=3 ! ilb(5)=3 per gamma diffusi coerentemente o incoerentemente
-                ! This *must* be done here after a call to knock because Compton and coherent scatter don't add
-            ! a new photon to the stack, but just alter its directions and energy
+            ! This *must* be done here after a call to knock() because Compton and coherent scatter don't add a new photon to the stack, but just alter its directions and energy
             endif
 
           enddo interact

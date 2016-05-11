@@ -314,7 +314,7 @@ Passed argument:
 
 Mode 4
 Situation:
-  The particle has been moved a distance DSEF by STEP and an interface crossing has ocurred at the end of the flight.
+  The particle has been moved a distance DSEF by STEP and an interface crossing has occurred at the end of the flight.
 Required action:
   None specific. Used by track length estimators to obtain the fluence.
 Passed argument:
@@ -450,7 +450,7 @@ A simulation may terminate before the quantity of interest has been obtained wit
 
 With penEasy users may restart a simulation and resume the calculation at exactly the point at which it stopped. To this end, a 'snapshot' of the system state is taken periodically, as dictated by the value introduced in the 'INTERVAL BETWEEN DUMPS' field of the configuration (IN) file, and at the end of the simulation. The information obtained from the snapshot is stored in a so-called dump file, whose name is also set in the configuration file.
 
-In a subsequent simulation, the dump file created before can be read to extract all the relevant information about the system state when the first simulation stopped. This includes the random seeds, number of histories, simulation time employed, values of the active tallies and of their uncertainties and state of the phase-space file (PSF) source (i.e., the last particle read, see the documentation for details), if this source model was active. Notice that, if the tally named PSF was active, the restarted simulation will append new particles to the previously created file. This is not the case for the file created by the tally called particle track, whose sole purpose is to display a few trajectories on the screen and not the sequential description of the electromagentic shower.
+In a subsequent simulation, the dump file created before can be read to extract all the relevant information about the system state when the first simulation stopped. This includes the random seeds, number of histories, simulation time employed, values of the active tallies and of their uncertainties and state of the phase-space file (PSF) source (i.e., the last particle read, see the documentation for details), if this source model was active. Notice that, if the tally named PSF was active, the restarted simulation will append new particles to the previously created file. This is not the case for the file created by the tally called particle track, whose sole purpose is to display a few trajectories on the screen and not the sequential description of the electromagnetic shower.
 
 The creation of the dump file is optional. If no name is provided, the file will not be created, thus possibly saving some CPU time at the cost of preventing a posterior restart. A simulation can be restarted as many times as desired, each time taking up from the point where the last execution ended.
 
@@ -556,8 +556,6 @@ Dr. Martinez-Rovira contributed to the implementation in penEasy of the IAEA for
 Some other people have tested the code, given advise or pointed out bugs and potential improvements. See ~\documentation\changeHistory.txt for details.
 
 Many thanks to all of them.
-
-
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 16. Preferred citation
