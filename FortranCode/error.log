@@ -1,0 +1,65 @@
+tallyDiaphragmCorrections.F:63:21:
+
+       if (.not.active) return
+                     1
+Error: Symbol ‘active’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:149:21:
+
+       if (.not.active) return
+                     1
+Error: Symbol ‘active’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:197:11:
+
+       numer = edepdtr(1)
+           1
+Error: Symbol ‘numer’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:199:6:
+
+       Kdfactors(1) = numer / denom
+      1
+Error: Function ‘kdfactors’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:202:6:
+
+       Kdfactors(2) = numer / denom
+      1
+Error: Function ‘kdfactors’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:205:6:
+
+       Kdfactors(3) = numer / denom
+      1
+Error: Function ‘kdfactors’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:208:6:
+
+       Kdfactors(4) = numer / denom
+      1
+Error: Function ‘kdfactors’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:211:6:
+
+       Kdfactors(5) = numer / denom
+      1
+Error: Function ‘kdfactors’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:212:6:
+
+       Kdfactors(6) = edepdtr(1) / edep(matdet)
+      1
+Error: Function ‘kdfactors’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:215:23:
+
+       sigma = Kdfactors(6) * sqrt((sigmaeprim/edepdtr(1)*invn)**2+
+                       1
+Error: Function ‘kdfactors’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:232:25:
+
+      &   i,Kdfacnames(i),Kdfactors(i)
+                         1
+Error: Function ‘kdfactors’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:292:14:
+
+         active = .true.
+              1
+Error: Symbol ‘active’ at (1) has no IMPLICIT type
+tallyDiaphragmCorrections.F:314:22:
+
+       read(*,*) matdet
+                      1
+Error: Symbol ‘matdet’ at (1) has no IMPLICIT type

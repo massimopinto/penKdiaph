@@ -44,7 +44,7 @@
 #include "tallyEnergyDeposition.F"
 ! Diaphragm Correction Factors from Massimo
 #include "tallyDiaphragmCorrections.F"
- #include "tallyFluenceTrackLength.F"
+#include "tallyFluenceTrackLength.F"
 ! #include "tallyFluencePointDetect.F"  !! Under construction
 #include "tallyParticleCurrentSpectrum.F"
 #include "tallyParticleTrackStructure.F"
@@ -429,6 +429,8 @@
       mem = mem+dmem
       call EDPinitally(dmem)  ! The energy deposition tally routines;
       mem = mem+dmem
+      call DIAPHinitally(dmem) ! Diaphragm correction factors
+      mem = mem+dmem
       call PHSinitally(dmem)
       mem = mem+dmem
       call PIDinitally(dmem)
@@ -457,6 +459,7 @@
       call CDDtally(mode,arg)
       call SPDtally(mode,arg)
       call EDPtally(mode,arg)
+      call DIAPHtally(mode, arg)
       call PHStally(mode,arg)
       call PIDtally(mode,arg)
       call FTLtally(mode,arg)
@@ -465,7 +468,6 @@
       call PCStally(mode)
       call PTStally(mode,arg)
       end
-
 
       subroutine tallyreport(mode,n,cputim,unc)
 !*******************************************************************
@@ -524,6 +526,8 @@
       call SPDreport(mode,n,cputim,uncdone)
       unc = unc*uncdone
       call EDPreport(mode,n,cputim,uncdone)
+      unc = unc*uncdone
+      call DIAPHreport(mode,n,cputim,uncdone)
       unc = unc*uncdone
       call PHSreport(mode,n,cputim,uncdone)
       unc = unc*uncdone

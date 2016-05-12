@@ -1,25 +1,25 @@
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 >>> Based on penEasy v.2015-05-30,>>>>
->>> This is penkdiaph v.2015-12   >>>>
+>>> This is penKdiaph v.2016-05   >>>>
 >>> Contributed by Massimo Pinto  >>>>
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  
-Program started on 10 May 2016  15:51:13                                                                               
+Program started on 12 May 2016  15:40:54                                                                               
  
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 [SECTION CONFIG v.2013-03-18]
 No. of histories requested: 
- 1.00000E+09
+ 1.00000E+07
 Allotted time (s):
  1.00000E+30
 Update interval:
  1.00000E+02
 Random seeds:
- 1 20
+ 1 10
 Simulation dump requested. Dump file name:
  Attix250Col.dmp                                                                 
 Interval between dumps:
- 6.00000E+02
+ 3.00000E+02
 >>>> Config initialization finished >>>>
   
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -688,7 +688,7 @@ Now calling PEINIT...
  PENELOPE (v. 2014)  End of material data file ........
  
 CPU time used to init PENELOPE (s):
-     28.29
+     12.13
  
 >>>> PENELOPE initialization finished >>>>
  
@@ -719,8 +719,14 @@ Memory used by static arrays (MB):
 Detection material set to:
  3
 Relative uncertainty (%) requested:
-  5.00000E-01
+  1.00000E-01
 >>>> EDP tally initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION DIAPHRAGM CORRECTIONS v.2016-05-12]
+Detection material is:
+ 3
+>>>> DIAPHinitally initialization finished >>>>
   
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 [SECTION TALLY PULSE HEIGHT SPECTRUM v.2012-06-01]
@@ -767,7 +773,7 @@ Memory used by static arrays (MB):
  
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 init: INITIALIZATION ENDED
-Elapsed real time:    30.90 s
-Elapsed CPU time :    28.33 s
+Elapsed real time:    12.35 s
+Elapsed CPU time :    12.16 s
 Memory used by penEasy arrays: 1.5E+01 MB
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

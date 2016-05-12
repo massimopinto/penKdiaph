@@ -163,7 +163,6 @@
       close(out)
       end
 
-
       subroutine EDPinitally(mem)
 !*******************************************************************
 !*    Initializes. To be called before TALLY.                      *

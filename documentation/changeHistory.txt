@@ -22,7 +22,7 @@ v. 2015-05-30
 * The variable containing the current history number is now stored in a module (ctrsimMod) and is thus made available to all routines at any time. This reduces the number of arguments passed to some routines and also allows the removal of a call to TALLY(2,.) previous to the call to source, needed by those routines that employ the "NLAST variable" method to keep track of variances in a large number of bins.
 
 * Previously, in the main program the call to TALLY(1,.) was located before the call to source:
-        CALL TALLY(1,N)        ! The simulation of this history begins
+          CALL TALLY(1,N)        ! The simulation of this history begins
         CALL SOURCE(N)         ! Put primary particles (from same history) in stack
   Now, the calls have been swapped:
         CALL SOURCE(N)
@@ -113,9 +113,9 @@ v. 2012-06-01
 
 * The code now allows for simulation restart, that is, it can reassume a previous run seamlessly. This feature has forced several changes in the code, including the main program, initialization sequence, sources, tallies and time routines.
 
-* The tally tallyEnergyDepositionPulseHeightSpectrum.f has been split into two different tallies: one is tallyEnergyDeposition.f and the other is tallyPulseHeightSpectrum.f. The corresponding gnuplot script has also been separated into two scripts, one for each tally. (Suggested by J M Fernández-Varea.)
+* The tally tallyEnergyDepositionPulseHeightSpectrum.f has been split into two different tallies: one is tallyEnergyDeposition.f and the other is tallyPulseHeightSpectrum.f. The corresponding gnuplot script has also been separated into two scripts, one for each tally. (Suggested by J M Fernï¿½ndez-Varea.)
 
-* An option has been added to tallyPulseHeightSpectrum.f that allows the definition of a convolution of the computed spectrum with a Gaussian function with variable width. (Thanks to J.M. Fernández-Varea for suggesting the inclusion of this feature.)
+* An option has been added to tallyPulseHeightSpectrum.f that allows the definition of a convolution of the computed spectrum with a Gaussian function with variable width. (Thanks to J.M. Fernï¿½ndez-Varea for suggesting the inclusion of this feature.)
 
 * tallyFluenceTrackLength.f has been simplifed by removing the computation of the deposited energy using the estimator track_length * restricted_StopPower. This avoids using 'deep' PENELOPE routines not intended for end users and, therefore, facilitates the maintenance of the code and reduces the risk of inconsistencies. Note that the deposited energy is already computed by other tallies.
 

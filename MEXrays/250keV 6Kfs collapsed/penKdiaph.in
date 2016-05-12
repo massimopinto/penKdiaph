@@ -50,14 +50,14 @@
 #   documentation (see ~/documentation/*).
 
 [SECTION CONFIG v.2013-03-18]
- 1.0e9             NUMBER OF HISTORIES (1.0e15 MAX)
+ 1e7             NUMBER OF HISTORIES (1.0e15 MAX)
  1.0e30            ALLOTTED TIME (s) (+ FOR REAL TIME; - FOR CPU TIME)
  100.0             UPDATE INTERVAL (s)
- 1  20             INITIAL RANDOM SEEDS
+ 1  10             INITIAL RANDOM SEEDS
  -                 SEEDS FILE; MUST ENTER SEEDS=0,0 TO APPLY
  -                 RESTART FILE; MUST ENTER SEEDS=-1,-1 TO APPLY
  Attix250Col.dmp   OUTPUT DUMP FILE; ENTER '-' FOR 'NO DUMP'
- 600.0             INTERVAL BETWEEN DUMPS (s)
+ 300.0             INTERVAL BETWEEN DUMPS (s)
 [END OF CONFIG SECTION]
 
 
@@ -232,6 +232,11 @@
  3                               DETECTION MATERIAL
  0.1                             RELATIVE UNCERTAINTY (%) REQUESTED
 [END OF EDP SECTION]
+
+[SECTION DIAPHRAGM CORRECTIONS v.2016-05-12]
+ ON                              STATUS (ON or OFF)
+ 3                               DETECTION MATERIAL
+[END OF DIAPH SECTION]
 
 [SECTION TALLY PULSE HEIGHT SPECTRUM v.2012-06-01]
  OFF                             STATUS (ON or OFF)

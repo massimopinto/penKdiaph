@@ -67,10 +67,9 @@
       integer i
 
       if (.not.active) return
-
       if (mode.le.0.and.mat.gt.0) then ! There's energy to be deposited
 
-!     Writing temporary counters for selected type of events
+ !     Writing temporary counters for selected type of events
        if(mat.eq.matdet) then ! if you are scoring in the detection material
                 ! ask what is the origin of this event
             if ((ilb(5).eq.0).and.(ilb(1).eq.1)) then
