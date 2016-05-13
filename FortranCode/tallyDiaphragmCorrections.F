@@ -53,7 +53,7 @@
       ! Non penso che questo moduo occorre tutto, qui.
       use DIAPHmod
       use TRACK_mod, only : mat,wght,ilb ! ilb needed for kdiaph corr's
-      !use PENELOPE_mod, only : nmat
+      !use PENELOPE_mod, only : nmat ! lo chiedeva EDPTally().
       implicit none
       integer mode
       real*8 eloss
@@ -125,7 +125,8 @@
       real*8 n,cputim
 
       integer i,out,finduf,errorcode
-      real*8 q,q2,sigma,eff,uncert,invn
+      ! real*8 q,q2,sigma,eff,uncert
+      real*8 sigma,invn
       real*8 dtr,dtr2,sigmadtr,edepssum,sigmadetmat,sigmaeprim,
      & Kdfactors(6),numer,denom
 
@@ -170,7 +171,7 @@
 
       write(out,'(a)')
      & '#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-     write(out,'(a)') '# [SECTION REPORT DIAPHRAGM CORRECTIONS]'
+      write(out,'(a)') '# [SECTION REPORT DIAPHRAGM CORRECTIONS]'
       write(out,'(a)') '# Report on selective energy deposition modes'
       write(out,'(a,1x,i3)') '# Limited to detection material', matdet
       !write(out,'(a)') '# All energy deposition values in eV/hist'
@@ -179,22 +180,41 @@
      & '#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
       write(out,'(a)')
      &   '####   counter E(eV/hist) +/-2sig'
+
       edepssum = 0.0
+      dtr = 0.0
+      dtr2 = 0.0
+      invn = 1.0/n ! normalize to number of histories.
+
       do i=1,maxk ! cycle through the energy deposition counters
-      dtr  = edepdtr(i)*invn
-      edepssum = edepssum + dtr
-      dtr2 = edepdtr2(i)*invn
-      sigmadtr = (dtr2-dtr**2)*invn
-      sigmadtr = sqrt(max(sigmadtr,0.0))
-      if (i.eq.1) sigmaeprim = sigmadtr !stores uncertainty for Eprim separately
-      write(out,'(1x,i3,3x,a5,1x,es12.5,1x,es8.1)')
+        dtr  = edepdtr(i)*invn
+        edepssum = edepssum + dtr ! adds up the energy deposition counters
+        ! this sum must be equal to the 'general' edep counter for the
+        ! detector material, dealt with in tallyEnergyDeposition.
+        dtr2 = edepdtr2(i)*invn
+        sigmadtr = (dtr2-dtr**2)*invn
+        sigmadtr = sqrt(max(sigmadtr,0.0))
+        if (i.eq.1) sigmaeprim = sigmadtr !Stores uncertainty for Eprim separately
+        ! this is useful if you wish to monitor the uncertainty on the energy
+        ! deposited by primary photons alone, as a criteria to halt the sim.
+        ! it is not implemented at this time, yet.
+        write(out,'(1x,i3,3x,a5,1x,es12.5,1x,es8.1)')
      &   i,Edepnames(i),dtr,2.0*sigmadtr
       enddo
       write(out,'(a)')
      & '#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-      write(out,'(a,1x,es12.5,1x,a,1x,es12.5)')
-     &   'Sum of specific depositions',edepssum,', fraction of edep',
-     &   edepssum/(edep(matdet)*invn)
+!      write(out,'(a,1x,es12.5,1x,a,1x,es12.5)')
+!     &   '# Sum of specific depositions',edepssum,', fraction of edep',
+!     &   edepssum/(edep(matdet)*invn)
+      write(out,'(a,1x,es12.5)')
+     &  '# Sum of Exxx counters', edepssum
+
+      write(out,'(a,9x,es12.5)')
+     &  '# edep(matdet)', edep(matdet)*invn
+      write(out,'(a,5x,es12.5)')
+     &  '# Fraction of edep', edepssum/(edep(matdet)*invn)
+!      write(*,'(a)')
+!     &    '#>>>> with edep being the general energy counter in detector'
 
       numer = edepdtr(1)
       denom = numer + edepdtr(2)
@@ -228,15 +248,27 @@
       write(out,'(a)')
      & '#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
       write(out,'(a)')
-     &   '####   counter   Kfactor'
+     &   '####   Kfactor Value'
       do i=1,maxk ! cycle through the corr factors
-        write(out,'(1x,i3,3x,a5,1x,es12.5)')
+        write(out,'(1x,i3,3x,a5,2x,es12.5)')
      &   i,Kdfacnames(i),Kdfactors(i)
       enddo
       write(out,'(a)')
      & '#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
       write(out,'(a,1x,a,1x,a,1x,es8.1)') '# +/- 2*sigma on',
      &  Kdfacnames(maxK),'=',2.0*sigma
+
+! Generic report, taken from tallyEnergyDeposition.dat
+      write(out,'(a)') ' '
+      write(out,'(a)') '# Performance report'
+      write(out,'(a)') '#   No. of histories simulated [N]:'
+      write(out,'(a,f18.0)') '#   ',n
+      write(out,'(a)') '#   CPU time [t] (s):'
+      write(out,'(a,es12.5)') '#   ',cputim
+      if (cputim.gt.0.0) then
+        write(out,'(a)') '#   Speed (histories/s):'
+        write(out,'(a,es12.5)') '#   ',n/cputim
+      endif
 
     ! Diaphragm correction factors calculations ended
       close(out)
