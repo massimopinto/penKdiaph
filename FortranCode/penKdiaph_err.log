@@ -1,0 +1,10 @@
+tallyDiaphragmCorrections.F:46:38:
+
+       subroutine DIAPHtally(mode,eloss)
+                                      1
+Error: Symbol ‘eloss’ at (1) has no IMPLICIT type
+penKdiaph.F:499:28:
+
+       call DIAPHtally(mode, arg)
+                            1
+Warning: Type mismatch in argument ‘eloss’ at (1); passed REAL(8) to UNKNOWN

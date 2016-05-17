@@ -209,7 +209,7 @@ c) Edit the configuration file penEasy.in, where the input data for penEasy is i
 d) To run penEasy, execute this:
    $ penEasy.x < penEasy.in > penEasy.out
 
-The main program reads from the standard input (the keyboard) and writes to the standard output (the screen), so it must be run redirecting these devices to the appropiate external files with the symbols '<' and '>', as shown in the previous command line.
+The main program reads from the standard input (the keyboard) and writes to the standard output (the screen), so it must be run redirecting these devices to the appropriate external files with the symbols '<' and '>', as shown in the previous command line.
 
 e) The course of the simulation can be controlled by sending commands to the program while it is running. This is accomplished by modifying the file command.in. The available commands and their coding are briefly explained inside the file itself. For instance, the simulation can be terminated and the final results printed by setting the number of requested histories to zero at any time. The file command.in is scanned periodically.
 

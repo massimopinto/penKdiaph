@@ -50,13 +50,13 @@
 #   documentation (see ~/documentation/*).
 
 [SECTION CONFIG v.2013-03-18]
- 1e7             NUMBER OF HISTORIES (1.0e15 MAX)
+ 1e7               NUMBER OF HISTORIES (1.0e15 MAX)
  1.0e30            ALLOTTED TIME (s) (+ FOR REAL TIME; - FOR CPU TIME)
  100.0             UPDATE INTERVAL (s)
  1  10             INITIAL RANDOM SEEDS
  -                 SEEDS FILE; MUST ENTER SEEDS=0,0 TO APPLY
  -                 RESTART FILE; MUST ENTER SEEDS=-1,-1 TO APPLY
- Attix250Col.dmp   OUTPUT DUMP FILE; ENTER '-' FOR 'NO DUMP'
+ 250keV_coll.dmp   OUTPUT DUMP FILE; ENTER '-' FOR 'NO DUMP'
  300.0             INTERVAL BETWEEN DUMPS (s)
 [END OF CONFIG SECTION]
 
@@ -159,12 +159,13 @@
 
 [SECTION PENELOPE v.2009-10-01]
  MAT# FILE___(max 20 char) EABS(e-)  EABS(ph)  EABS(e+)  C1    C2    WCC      WCR      DSMAX   COMMENTS
-  1   Air.mat             1.0e3     1.0e3     100.0e3   0.2   0.2   1.0e3    -1.0e3   1.0e30  Air, surrounding
+  1   Air.mat             1.0e3     1.0e3     100.0e3   0.2   0.2   1.0e3    -1.0e3   1.0e30  Air, front and rear
   2   Aluminium.mat       1.0e3     1.0e3     100.0e3   0.2   0.2   1.0e3    -1.0e3   1.0e30  Aluminium
   3   Air.mat             1.0e3     1.0e3     100.0e3   0.2   0.2   1.0e3    -1.0e3   1.0e30  Air, for detection
   4   Tungsten.mat        25.0e3    1.0e3     100.0e3   0.2   0.2   1.0e3    -1.0e3   1.0e30  Tungsten
   5   StainlessSteel.mat  25.0e3    1.0e3     100.0e3   0.2   0.2   1.0e3    -1.0e3   1.0e30  Steel
   6   Lead.mat            25.0e3    1.0e3     100.0e3   0.2   0.2   1.0e3    -1.0e3   1.0e30  Lead
+  7   Air.mat             2.0e4     5.0e3     100.0e3   0.2   0.2   1.0e3    -1.0e3   1.0e30  Air, surrounding
   0 (SET MAT=0 TO END LIST)
 [END OF PEN SECTION]
 

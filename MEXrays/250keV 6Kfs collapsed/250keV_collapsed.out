@@ -4,7 +4,7 @@
 >>> Contributed by Massimo Pinto  >>>>
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  
-Program started on 12 May 2016  15:40:54                                                                               
+Program started on 17 May 2016  15:45:05                                                                               
  
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 [SECTION CONFIG v.2013-03-18]
@@ -17,7 +17,7 @@ Update interval:
 Random seeds:
  1 10
 Simulation dump requested. Dump file name:
- Attix250Col.dmp                                                                 
+ 250keV_coll.dmp                                                                 
 Interval between dumps:
  3.00000E+02
 >>>> Config initialization finished >>>>
@@ -361,8 +361,8 @@ SURFACE (  24), SIDE POINTER=(-1)
 SURFACE (  25), SIDE POINTER=( 1)
 SURFACE (  21), SIDE POINTER=(-1)
 0000000000000000000000000000000000000000000000000000000000000000
-MODULE  (  23)  all enclosed in air                                  
-MATERIAL(   1)
+MODULE  (  23)  all enclosed in external air, type 7                 
+MATERIAL(   7)
 MODULE  (  16)
 MODULE  (  19)
 C BODY    (  17)                                                        
@@ -485,7 +485,7 @@ KFLAG =    2    1    2    1
 KSURF =   23   24   25   21
 KFLAG =    2    1    2    1
 
-*** MODULE =   23,  KMOTH =    0,  MAT =  1
+*** MODULE =   23,  KMOTH =    0,  MAT =  7
 KDGHT =   16   19   20   21   22   23
 KSURF =    4    8    7    9   10   11   12   15   18   17   20   21   23   24   25
 
@@ -514,7 +514,7 @@ The simulation of this geometry is expected to be slow,
 No voxels geometry file defined.
  
 No. of materials referenced in the geometry:
- 6
+ 7
  
 >>>> Geometry initialization finished >>>>
  
@@ -528,6 +528,7 @@ MAT#  FILENAME             EABS(e-)  EABS(ph)  EABS(e+)  C1        C2        WCC
  4    Tungsten.mat         2.500E+04 1.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
  5    StainlessSteel.mat   2.500E+04 1.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
  6    Lead.mat             2.500E+04 1.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
+ 7    Air.mat              2.000E+04 5.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
  
 Now calling PEINIT...
  
@@ -686,9 +687,35 @@ Now calling PEINIT...
     Element: Pb (Z=82), atoms/molecule = 1.00000000E+00
  Mean excitation energy = 8.23000000E+02 eV
  PENELOPE (v. 2014)  End of material data file ........
+
+
+ **********************
+ **   7th material   **
+ **********************
+
+ Material data file: Air.mat             
+
+ *** Simulation parameters:
+     Electron absorption energy = 2.0000E+04 eV
+       Photon absorption energy = 5.0000E+03 eV
+     Positron absorption energy = 1.0000E+05 eV
+ *** Warning: soft radiative losses are switched off
+      C1 = 2.0000E-01,       C2 = 2.0000E-01
+     WCC = 1.0000E+03 eV,   WCR = 1.0000E+01 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: AIR, DRY (NEAR SEA LEVEL)  (104)                              
+ Mass density = 1.20479000E-03 g/cm**3
+ Number of elements in the molecule =  4
+    Element: C  (Z= 6), atoms/molecule = 1.50187000E-04
+    Element: N  (Z= 7), atoms/molecule = 7.84430000E-01
+    Element: O  (Z= 8), atoms/molecule = 2.10748000E-01
+    Element: Ar (Z=18), atoms/molecule = 4.67111000E-03
+ Mean excitation energy = 8.57000000E+01 eV
+ PENELOPE (v. 2014)  End of material data file ........
  
 CPU time used to init PENELOPE (s):
-     12.13
+     14.06
  
 >>>> PENELOPE initialization finished >>>>
  
@@ -773,7 +800,7 @@ Memory used by static arrays (MB):
  
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 init: INITIALIZATION ENDED
-Elapsed real time:    12.35 s
-Elapsed CPU time :    12.16 s
+Elapsed real time:    14.17 s
+Elapsed CPU time :    14.09 s
 Memory used by penEasy arrays: 1.5E+01 MB
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
