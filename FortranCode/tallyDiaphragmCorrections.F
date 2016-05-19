@@ -62,16 +62,22 @@
 
       if (.not.active) return
 
-      if (mode.le.0.and.mat.eq.matdet) then ! There's energy to be deposited in the *detector material*
+      if ((mode.le.0).and.(mat.eq.matdet)) then ! There's energy to be deposited in the *detector material*
         ! this is copied from EDPtally but is specific to *matdet* alone, which is air in case of a FAC.
         ! Energy will be deposited in appropriate sub.counters, depending on the type of event.
         ! The same energy value is stored by EDPtally in edptmp(mat).
-        if ((ilb(5).eq.0).and.(ilb(1).eq.1)) then
-            edptmpdiaph(1) = edptmpdiaph(1) +eloss*wght ! scores "Eprim" from electron's energy
+
+        ! ho commentato queste due righe che seguono in data 18 Maggio 2016.
+        ! pensavo corripsondesse ad una sottrazione di energia nel contatore Eprim.ù
+        ! Ma così non è stato!
+        !if ((ilb(5).eq.0).and.(ilb(1).eq.1)) then
+        !    edptmpdiaph(1) = edptmpdiaph(1) +eloss*wght ! scores "Eprim" from electron's energy
+
         ! a photo- or Compton-electron was created from a primary photon and the initial energy is stored.
         ! the secondary photon is NOT contemplated in the energy count
         ! in agreement with what the free air chamber is to measure.
-        else if (ilb(5).eq.1) then
+        !else
+        if (ilb(5).eq.1) then
             edptmpdiaph(1) = edptmpdiaph(1) +eloss*wght
         ! In this case you have that the above-mentioned electron is being transported and got a knockx()
         else if (ilb(5).eq.2) then  ! photon transmitted through diaphragm
@@ -94,7 +100,8 @@
 
       else if (mode.eq.6) then  ! End-of-history bookkeeping
         do i=1,maxK             ! energy counters specific for each physical process
-            if (edptmpdiaph(i).gt.0.0) then  ! Transfer temporary specific counter to mean and variance
+            if (edptmpdiaph(i).gt.0.0) then  ! Skip void counters
+                ! Transfer temporary counters historic counters edepdtr and edepdtr2
                 edepdtr(i) = edepdtr(i) + edptmpdiaph(i)
                 edepdtr2(i) = edepdtr2(i) + edptmpdiaph(i)**2
                 edptmpdiaph(i) = 0.0

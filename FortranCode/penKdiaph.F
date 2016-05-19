@@ -71,9 +71,9 @@
       real*8 ds,dsef,de
 
       write(*,'(a)') '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-      write(*,'(a)') '>>> Based on penEasy v.2015-05-30,>>>>'
-      write(*,'(a)') '>>> This is penKdiaph v.2016-05   >>>>'
-      write(*,'(a)') '>>> Contributed by Massimo Pinto  >>>>'
+      write(*,'(a)') '>>> Based on penEasy v.2015-05-30, >>>'
+      write(*,'(a)') '>>> This is penKdiaph v.2016-05    >>>'
+      write(*,'(a)') '>>> Contributed by Massimo Pinto   >>>'
       write(*,'(a)') '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
 
       call init      ! Initialize the PENELOPE/penEasy system and timers
@@ -89,16 +89,22 @@
           if (left.eq.0) exit particle ! Stack was empty
 
 !****************************************************************
+! Now marking particles as they are retrieved from the stack
+! Depending on where they are and how they were created
+!****************************************************************
+
+
+!****************************************************************
 ! Section specific to AIR in the FREE AIR CHAMBER
 ! either scoring volume or air behind the diaphragm
 ! note that this is upon retrieval of the particle from the Stack
 ! it can be either a primary or a secondary particles
 !****************************************************************
 
-          if ((mat.eq.1).or.(mat.eq.3)) then  ! Air, all
+          if ((mat.eq.1).or.(mat.eq.3)) then  ! Air inside the chamber.
             ! Air surrounding the detection volume (material 1) or is the detection volume itself (material 3)
             ! if ((kpar.eq.1).and.(ilb(1).eq.2).and.(ilb(2).eq.2)) ilb(5)=1
-            if ((ilb(1).eq.2).and.(ilb(2).eq.2)) then ! secondary descending from a photon
+            if ((ilb(1).eq.2).and.(ilb(2).eq.2)) then ! secondary particle descending from a photon
               if (kpar.eq.1) then ! electron
                 ilb(5)=1
               else if (kpar.eq.2) then ! photon
@@ -109,17 +115,18 @@
               endif
             endif
           endif
-            ! A secondary particle was generated directly from a *primary photon* in Air
-            ! This is either a photon or an electron.
-            ! the indication ilb(2).eq.2 is perhaps redundant if the primary particles can only be photons.
-            ! subsequent radiative losses with ilb(5)=1 should be substracted from the counters
-            ! of the body in which the electron was first created (not where Bremmsstrahlung occurs)
 
-          ! Questa routine, così come è, tratta l'aria fuori dalla camera ad aria libera e quella subito dietro
-          ! il diaframma allo stesso modo dell'aria che sta nel volume di misura. E' quello che vuoi?
-          ! Occorre giusto fare attenzione an caso di elettroni generati fuori da CAL.
-          ! Quelli non credo che occorra seguirli con tanto dettaglio, senno' vai troppo piano.
-          ! Potresti magari avere tre tipo di materiale aria: uno esterno e due interni.
+! A secondary particle was generated directly from a *primary photon* in Air
+! This is either a photon or an electron.
+! the indication ilb(2).eq.2 is perhaps redundant if the primary particles can only be photons.
+! subsequent radiative losses with ilb(5)=1 should be substracted from the counters
+! of the body in which the electron was first created (not where Bremmsstrahlung occurs)
+
+! Questa routine, così come è, tratta l'aria fuori dalla camera ad aria libera e quella subito dietro
+! il diaframma allo stesso modo dell'aria che sta nel volume di misura. E' quello che vuoi?
+! Occorre giusto fare attenzione an caso di elettroni generati fuori da CAL.
+! Quelli non credo che occorra seguirli con tanto dettaglio, senno' vai troppo piano.
+! Potresti magari avere tre tipo di materiale aria: uno esterno e due interni.
 
 !****************************************************************
 ! Section specific to the events occuring in the DIAPHRAGM
@@ -133,9 +140,11 @@
             if (kpar.eq.2) then ! Photon
                 if (ilb(2).eq.2) then ! Fluorescence photon, was photoelectric effect of inner shell
                     ilb(5)=4 ! fluorescence event in the diaphragm
-                else if (ilb(2).eq.1) then
+                  else if (ilb(2).eq.1) then
                     ilb(5)=4 ! fluorescence unless...
-                    if (ilb(3).eq.4) ilb(5)=5 !  Bremsstrahlung in the diaphragm
+                    if (ilb(3).eq.4) then
+                      ilb(5)=5 !  Bremsstrahlung in the diaphragm
+                    endif
                 endif
             else if (kpar.eq.1) then ! electron that does not already come from fluorescence or Bremss photons
                 if((ilb(5).ne.4).and.(ilb(5).ne.5)) ilb(5)=6
@@ -189,13 +198,17 @@
             else                           ! Moved a distance DSEF, interface found
               call tally(4,dsef)           ! Notify tallies
               if (mat.eq.0) cycle particle ! New material is vacuum => gone
-            ! Massimo adds control routine on labeling transmited photon
-            ! as discussed via email with Josep Sempau in February 2013
-            if ((mat.eq.4).and.(ilb(1).eq.1).and.(kpar.eq.2)) ilb(5)=2
-            ! a *primary* *photon* that is found passing through the *diaphragm*
-            ! is labeled as a transmitted photon. Unless it interacts...
-            ! That is, it is found inside the diaphragm - BEFORE any interaction and is labeled with ilb(5)=2
-            ! Massimo stops
+              ! Molta attenzione a questo, perché se hai delle gap vuote, come
+              ! nel calorimetro Rx, sarà meglio impostare aria a bassa pressione, piuttosto.
+              ! Massimo adds control routine on labeling transmited photon
+              ! as discussed via email with Josep Sempau in February 2013
+              if ((mat.eq.4).and.(ilb(1).eq.1).and.(kpar.eq.2)) then ! New material is tungsten
+                ilb(5)=2 ! label as transmitted photon before any interaction with knockx().
+              ! occhio qui a seguire: sperimentazione del 19/05/2016
+                ilb(1)=2 ! label as no longer a primary photon. Necessary? over-cautious?
+              ! This is now being exploited on line #246 to re-label scattered photons
+              ! that were first found inside the diaphragm.
+              endif
 
               call start                   ! New material => reset transport mechanics
               call forcing                 ! Set interaction forcing status
@@ -212,23 +225,31 @@
             if (isforcing) then            ! Interaction forcing (IF) is active
               call knockf(de,icol)         ! Simulate an interaction with IF
             else
-              call knock(de,icol)          ! Same with no IF
+              call knock(de,icol)          ! Simulate an interaction but with/o IF
             endif
 #ifdef PROTONS
             endif
 #endif
 
+! provo ad anticipare qui prima di tally(-int(icol),de), 18 Maggio.
+! Quello che vorrei provare a vedere è se lgi eventi di scattering
+! non venivano conteggiati perché chiamati solo dopo tally.
+!        if((mat.eq.4).and.(kpar.eq.2).and.(ilb(1).eq.1)) then ! *primary photon in tungsten*
+!          if ((icol.eq.1).or.(icol.eq.2)) ilb(5)=3
+!        endif
             call tally(-int(icol),de)      ! Tally kinetic energy released
 
-            ! this is a call to tally specific for knockx() events.
-            ! Incoherent or coherent scattering of primary photons here,
-            ! AFTER tally (mimicking "cav-INMRI.f", line 507)
-            if((mat.eq.4).and.(kpar.eq.2).and.(ilb(1).eq.1)) then ! *primary photon in tungsten*
+            ! AFTER tally (mimicking "cav-INMRI.f", line 507). Why is this after tally(?)
+!           if((mat.eq.4).and.(kpar.eq.2).and.(ilb(1).eq.1)) then ! *primary photon in tungsten*
+            if((mat.eq.4).and.(kpar.eq.2).and.(ilb(5).eq.2)) then ! *primary photon in tungsten*
+              ! this was already labeled as transmitted, earlier up on line #206
+              ! now that a call to knock was issued, we re-label the photon, just in case.
               if ((icol.eq.1).or.(icol.eq.2)) ilb(5)=3
             ! ilb(5)=3 per gamma diffusi coerentemente o incoerentemente
             ! This *must* be done here after a call to knock() because Compton
             ! and coherent scatter don't add a new photon to the stack,
-            ! but just alter its directions and energy
+            ! but just alter the direction and the energy of the same photon.
+            ! if this was a primary photon, such as here, it will stay a primary photon!
             endif
 
           enddo interact
@@ -496,7 +517,7 @@
       call CDDtally(mode,arg)
       call SPDtally(mode,arg)
       call EDPtally(mode,arg)
-      call DIAPHtally(mode, arg)
+      call DIAPHtally(mode, arg) ! For mode-specific energy depositons in matdet.
       call PHStally(mode,arg)
       call PIDtally(mode,arg)
       call FTLtally(mode,arg)

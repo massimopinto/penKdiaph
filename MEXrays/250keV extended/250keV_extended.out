@@ -1,0 +1,804 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>> Based on penEasy v.2015-05-30, >>>
+>>> This is penKdiaph v.2016-05    >>>
+>>> Contributed by Massimo Pinto   >>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+Program started on 19 May 2016  14:38:00                                                                               
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION CONFIG v.2013-03-18]
+No. of histories requested: 
+ 1.00000E+07
+Allotted time (s):
+ 1.00000E+30
+Update interval:
+ 1.00000E+02
+Random seeds:
+ 1 10
+Simulation dump requested. Dump file name:
+ 250keV_coll.dmp                                                                 
+Interval between dumps:
+ 3.00000E+02
+>>>> Config initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SOURCE BOX ISOTROPIC GAUSS SPECTRUM v.2014-12-21]
+Memory used by static arrays (MB):
+  7.68000E-01
+Particle type:
+ 2
+Photon polarization physics:
+  not activated
+Coordinates of box center (cm):
+  0.00000E+00  0.00000E+00 -1.00000E+02
+Box sides (cm):
+  0.00000E+00  0.00000E+00  0.00000E+00
+FWHMs of x and y distribs. (cm):
+  0.00000E+00  0.00000E+00
+Euler angles for box rotation (deg):
+  0.00000E+00  0.00000E+00  0.00000E+00
+Translation of box center (cm):
+  0.00000E+00  0.00000E+00  0.00000E+00
+Source material:
+ 0
+Direction vector (u,v,w):
+  0.00000E+00  0.00000E+00  1.00000E+00
+Polar angle interval, [theta0,theta1](deg):
+  0.00000E+00  7.16160E-01
+Azimuthal angle interval, phi0 and Dphi (deg):
+  0.00000E+00  3.60000E+02
+Apply to direction same rotation use for box position?
+ Yes
+Reading energy spectrum from config file.
+  Energy(eV)  Relat.Probability   Bin#
+  2.50000E+05  1.00000E+00 1
+  2.50000E+05 -1.00000E+00 2
+No. of bins read:
+ 1
+Sum of relative probabilities before normalization:
+  1.00000E+00
+FWHM of Gaussian energy distrib. (eV):
+  0.00000E+00
+>>>> BIGS source initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SOURCE PHASE SPACE FILE v.2009-06-15]
+>>>> Source Phase Space File is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION PENGEOM+PENVOX v.2009-06-15]
+ 
+>>>> Initializing quadric geometry >>>>
+Opening quadric geometry file:
+ AttixExt.geo                                                                    
+Now calling PENGEOM...
+ 
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   1)   CYLINDER r=0.2 cm, in reduced form                  
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 2.000000000000000E-01,   0)       
+Y-SCALE=( 2.000000000000000E-01,   0)       
+Y-SHIFT=(-8.000000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   2)   CYLINDER r=0.5 cm                                   
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 5.000000000000000E-01,   0)       
+Y-SCALE=( 5.000000000000000E-01,   0)       
+Y-SHIFT=(-8.000000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   3)   CYLINDER r=15 cm                                    
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 1.500000000000000E+01,   0)       
+Y-SCALE=( 1.500000000000000E+01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   4)   CYLINDER r=16.0 cm                                  
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 1.600000000000000E+01,   0)       
+Y-SCALE=( 1.600000000000000E+01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   5)      PLANE z=-27.0 cm                                 
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=(-2.700000000000000E+01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   6)      PLANE z=+27.0 cm                                 
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=( 2.700000000000000E+01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   7)      PLANE z=-37 cm                                   
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=(-3.700000000000000E+01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   8)      PLANE z=+37 cm                                   
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=( 3.700000000000000E+01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (   9)    diaphgram exit plane, z=+2.88mm                    
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=( 2.880000000000000E-01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  10)    diaphragm entrance plane, z=-9.89mm                
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=(-9.890000000000000E-01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  11)   cylinder diam 1.0008cm, diaphragm aperture          
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 5.004000000000000E-01,   0)       
+Y-SCALE=( 5.004000000000000E-01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  12)   cylinder diam 2.5cm, diaphram outer radius          
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 1.250000000000000E+00,   0)       
+Y-SCALE=( 1.250000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  13)   cone defining the tapered aperture                  
+INDICES=( 1, 1,-1, 0, 0)
+X-SCALE=( 1.000000000000000E+00,   0)       
+Y-SCALE=( 1.000000000000000E+00,   0)       
+Z-SHIFT=(-5.004000000000000E-01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  14)      PLANE z=0cm (defining aperture plane)            
+INDICES=( 0, 0, 0, 1, 0)
+0000000000000000000000000000000000000000000000000000000000000000
+C Definition of planes and cylinders for the diaphgram cup              
+C stainless steel-made                                                  
+SURFACE (  15)      PLANE z=-11.39mm (borchia acciaio)               
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=(-1.139000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  16)      PLANE z=-0.89mm   (borchia acciaio)              
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=(-8.900000000000000E-01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  17)   cylinder diam 38mm, borchia acciaio esterno         
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 1.900000000000000E+00,   0)       
+Y-SCALE=( 1.900000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  18)   cylinder diam 19mm, borchia acciaio interno         
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 9.500000000000000E-01,   0)       
+Y-SCALE=( 9.500000000000000E-01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  19)   cylinder diam 34mm, borchia acciaio intemedia       
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 1.700000000000000E+00,   0)       
+Y-SCALE=( 1.700000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  20)      PLANE z=-7.12mm   Lead, front end                
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=(-7.120000000000000E-01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  21)   cylinder radius 20cm, guscio Pb                     
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 2.000000000000000E+01,   0)       
+Y-SCALE=( 2.000000000000000E+01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  22)  enclosing sphere, diam 3 metres                      
+INDICES=( 1, 1, 1, 0,-1)
+X-SCALE=( 3.000000000000000E+02,   0)       
+Y-SCALE=( 3.000000000000000E+02,   0)       
+Z-SCALE=( 3.000000000000000E+02,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  23)      PLANE z=80cm (rear chamber wall, inner surf)     
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=( 8.000000000000000E+01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  24)      PLANE z=81.0cm (rear chamber wall, out surf)     
+INDICES=( 0, 0, 0, 1, 0)
+Z-SHIFT=( 8.100000000000000E+01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+SURFACE (  25)   cylinder radius 37mm, rear chamber wall apertur     
+INDICES=( 1, 1, 0, 0,-1)
+X-SCALE=( 1.800000000000000E+00,   0)       
+Y-SCALE=( 1.800000000000000E+00,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   1)  air  middle volume, inner part of electrode          
+MATERIAL(   1)
+SURFACE (   1), SIDE POINTER=(-1)
+SURFACE (   5), SIDE POINTER=( 1)
+SURFACE (   6), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   2)  middle volume, aluminum electrode                    
+MATERIAL(   2)
+BODY    (   1)
+SURFACE (   2), SIDE POINTER=(-1)
+SURFACE (   5), SIDE POINTER=( 1)
+SURFACE (   6), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   3)  middle volume, AIR (type 2, mat. no. 3)              
+MATERIAL(   3)
+BODY    (   2)
+SURFACE (   3), SIDE POINTER=(-1)
+SURFACE (   2), SIDE POINTER=( 1)
+SURFACE (   5), SIDE POINTER=( 1)
+SURFACE (   6), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   4)  middle volume, Aluminum H.V. electrode               
+MATERIAL(   2)
+SURFACE (   4), SIDE POINTER=(-1)
+SURFACE (   3), SIDE POINTER=( 1)
+SURFACE (   5), SIDE POINTER=( 1)
+SURFACE (   6), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   5)  rear volume, inner part of electrode                 
+MATERIAL(   1)
+SURFACE (   1), SIDE POINTER=(-1)
+SURFACE (   6), SIDE POINTER=( 1)
+SURFACE (   8), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   6)  front volume, inner part of electrode                
+MATERIAL(   1)
+SURFACE (   1), SIDE POINTER=(-1)
+SURFACE (   7), SIDE POINTER=( 1)
+SURFACE (   5), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   7)  rear volume, aluminum electrode                      
+MATERIAL(   2)
+BODY    (   5)
+SURFACE (   2), SIDE POINTER=(-1)
+SURFACE (   6), SIDE POINTER=( 1)
+SURFACE (   8), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   8)  front volume, aluminum electrode                     
+MATERIAL(   2)
+BODY    (   6)
+SURFACE (   2), SIDE POINTER=(-1)
+SURFACE (   7), SIDE POINTER=( 1)
+SURFACE (   5), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (   9)  Air, rear volume                                     
+MATERIAL(   1)
+BODY    (   7)
+SURFACE (   3), SIDE POINTER=(-1)
+SURFACE (   6), SIDE POINTER=( 1)
+SURFACE (   8), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (  10)  Air, front volume                                    
+MATERIAL(   1)
+BODY    (   8)
+SURFACE (   3), SIDE POINTER=(-1)
+SURFACE (   7), SIDE POINTER=( 1)
+SURFACE (   5), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (  11)  rear volume, aluminum HV electrode                   
+MATERIAL(   2)
+SURFACE (   4), SIDE POINTER=(-1)
+SURFACE (   3), SIDE POINTER=( 1)
+SURFACE (   6), SIDE POINTER=( 1)
+SURFACE (   8), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (  12)  front volume, aluminum HV electrode                  
+MATERIAL(   2)
+SURFACE (   4), SIDE POINTER=(-1)
+SURFACE (   3), SIDE POINTER=( 1)
+SURFACE (   7), SIDE POINTER=( 1)
+SURFACE (   5), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+MODULE  (  13)  middle assembly, using detection AIR                 
+MATERIAL(   3)
+BODY    (   1)
+BODY    (   2)
+BODY    (   3)
+BODY    (   4)
+SURFACE (   6), SIDE POINTER=(-1)
+SURFACE (   5), SIDE POINTER=( 1)
+SURFACE (   4), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+MODULE  (  14)  rear assembly                                        
+MATERIAL(   1)
+BODY    (   5)
+BODY    (   7)
+BODY    (   9)
+BODY    (  11)
+SURFACE (   8), SIDE POINTER=(-1)
+SURFACE (   6), SIDE POINTER=( 1)
+SURFACE (   4), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+MODULE  (  15)  front assembly                                       
+MATERIAL(   1)
+BODY    (   6)
+BODY    (   8)
+BODY    (  10)
+BODY    (  12)
+SURFACE (   5), SIDE POINTER=(-1)
+SURFACE (   7), SIDE POINTER=( 1)
+SURFACE (   4), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+MODULE  (  16)  chamber assembly                                     
+MATERIAL(   1)
+MODULE  (  13)
+MODULE  (  14)
+MODULE  (  15)
+SURFACE (   8), SIDE POINTER=(-1)
+SURFACE (   7), SIDE POINTER=( 1)
+SURFACE (   4), SIDE POINTER=(-1)
+1111111111111111111111111111111111111111111111111111111111111111
+Z-SHIFT=( 4.030000000000000E+01,   0)       
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (  17)  tapered virtual body - to be subtracted              
+MATERIAL(   1)
+SURFACE (  14), SIDE POINTER=( 1)
+SURFACE (   9), SIDE POINTER=(-1)
+SURFACE (  13), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (  18)  Tungsten Diaphragm                                   
+MATERIAL(   4)
+BODY    (  17)
+SURFACE (  10), SIDE POINTER=( 1)
+SURFACE (   9), SIDE POINTER=(-1)
+SURFACE (  11), SIDE POINTER=( 1)
+SURFACE (  12), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+MODULE  (  19)  Complete Diaphragm, with tapered aperture            
+MATERIAL(   1)
+BODY    (  17)
+BODY    (  18)
+SURFACE (  10), SIDE POINTER=( 1)
+SURFACE (   9), SIDE POINTER=(-1)
+SURFACE (  11), SIDE POINTER=( 1)
+SURFACE (  12), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (  20)  borchia copri-diaframma, steel, parte 1              
+MATERIAL(   5)
+C MODULE  (  15)  diaframma in Tungsteno                                
+SURFACE (  15), SIDE POINTER=( 1)
+SURFACE (   9), SIDE POINTER=(-1)
+SURFACE (  18), SIDE POINTER=( 1)
+SURFACE (  17), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (  21)  1cm-Thick Lead Front Wall                            
+MATERIAL(   6)
+SURFACE (  20), SIDE POINTER=( 1)
+SURFACE (   9), SIDE POINTER=(-1)
+SURFACE (  17), SIDE POINTER=( 1)
+SURFACE (  21), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+BODY    (  22)  1cm-Thick Lead Rear Wall with rear aperture          
+MATERIAL(   6)
+SURFACE (  23), SIDE POINTER=( 1)
+SURFACE (  24), SIDE POINTER=(-1)
+C SURFACE (  25), SIDE POINTER=( 1)                                     
+SURFACE (  21), SIDE POINTER=(-1)
+0000000000000000000000000000000000000000000000000000000000000000
+MODULE  (  23)  all enclosed in 'external' air                       
+MATERIAL(   7)
+MODULE  (  16)
+MODULE  (  19)
+C BODY    (  17)                                                        
+C BODY    (  18)                                                        
+BODY    (  20)
+BODY    (  21)
+BODY    (  22)
+0000000000000000000000000000000000000000000000000000000000000000
+END      0000000000000000000000000000000000000000000000000000000
+
+
+
+*****************************************
+****     PENGEOM (version 2014)      ****
+****  Constructive Quadric Geometry  ****
+*****************************************
+
+
+
+************  Genealogical tree. 
+
+
+*** BODY   =    1,  KMOTH =   13,  MAT =  1
+KSURF =    1    5    6
+KFLAG =    1    2    1
+
+*** BODY   =    2,  KMOTH =   13,  MAT =  2
+KBODY =    1
+KSURF =    1    5    6    2
+KFLAG =    3    2    1    1
+
+*** BODY   =    3,  KMOTH =   13,  MAT =  3
+KBODY =    2
+KSURF =    1    5    6    2    3
+KFLAG =    3    2    1    2    1
+
+*** BODY   =    4,  KMOTH =   13,  MAT =  2
+KSURF =    4    3    5    6
+KFLAG =    1    2    2    1
+
+*** BODY   =    5,  KMOTH =   14,  MAT =  1
+KSURF =    1    6    8
+KFLAG =    1    2    1
+
+*** BODY   =    6,  KMOTH =   15,  MAT =  1
+KSURF =    1    7    5
+KFLAG =    1    2    1
+
+*** BODY   =    7,  KMOTH =   14,  MAT =  2
+KBODY =    5
+KSURF =    1    6    8    2
+KFLAG =    3    2    1    1
+
+*** BODY   =    8,  KMOTH =   15,  MAT =  2
+KBODY =    6
+KSURF =    1    7    5    2
+KFLAG =    3    2    1    1
+
+*** BODY   =    9,  KMOTH =   14,  MAT =  1
+KBODY =    7
+KSURF =    1    6    8    2    3
+KFLAG =    3    2    1    3    1
+
+*** BODY   =   10,  KMOTH =   15,  MAT =  1
+KBODY =    8
+KSURF =    1    7    5    2    3
+KFLAG =    3    2    1    3    1
+
+*** BODY   =   11,  KMOTH =   14,  MAT =  2
+KSURF =    4    3    6    8
+KFLAG =    1    2    2    1
+
+*** BODY   =   12,  KMOTH =   15,  MAT =  2
+KSURF =    4    3    7    5
+KFLAG =    1    2    2    1
+
+*** MODULE =   13,  KMOTH =   16,  MAT =  3
+KDGHT =    1    2    3    4   13
+KSURF =    1    5    6    2    3    4
+KFLAG =    4    2    1    4    4    1
+
+*** MODULE =   14,  KMOTH =   16,  MAT =  1
+KDGHT =    5    7    9   11   14
+KSURF =    1    6    8    2    3    4
+KFLAG =    4    2    1    4    4    1
+
+*** MODULE =   15,  KMOTH =   16,  MAT =  1
+KDGHT =    6    8   10   12   15
+KSURF =    1    7    5    2    3    4
+KFLAG =    4    2    1    4    4    1
+
+*** MODULE =   16,  KMOTH =   23,  MAT =  1
+KDGHT =   13   14   15   16
+KSURF =    5    6    4    8    7
+KFLAG =    4    4    1    1    2
+
+*** BODY   =   17,  KMOTH =   19,  MAT =  1
+KSURF =   14    9   13
+KFLAG =    2    1    1
+
+*** BODY   =   18,  KMOTH =   19,  MAT =  4
+KBODY =   17
+KSURF =   14    9   13   10   11   12
+KFLAG =    3    1    3    2    2    1
+
+*** MODULE =   19,  KMOTH =   23,  MAT =  1
+KDGHT =   17   18   19
+KSURF =   14    9   13   10   11   12
+KFLAG =    4    1    4    2    2    1
+
+*** BODY   =   20,  KMOTH =   23,  MAT =  5
+KSURF =   15    9   18   17
+KFLAG =    2    1    2    1
+
+*** BODY   =   21,  KMOTH =   23,  MAT =  6
+KSURF =   20    9   17   21
+KFLAG =    2    1    2    1
+
+*** BODY   =   22,  KMOTH =   23,  MAT =  6
+KSURF =   23   24   21
+KFLAG =    2    1    1
+
+*** MODULE =   23,  KMOTH =    0,  MAT =  7
+KDGHT =   16   19   20   21   22   23
+KSURF =    4    8    7    9   10   11   12   15   18   17   20   21   23   24
+KFLAG =    4    4    4    4    4    4    4    4    4    4    4    4    4    4
+
+The module   23 is the enclosure.
+
+
+************  Adequacy of the geometry definition.
+
+The largest number of bodies in a module or
+     bodies limiting a single body is ............    6
+
+The largest number of limiting surfaces for
+     a single body or module is ..................   14
+
+
+The simulation of this geometry is expected to be slow,
+     try to split complex bodies into several modules.
+
+************  The end.
+ 
+>>>> Quadric geometry initialization finished >>>>
+ 
+No voxels geometry file defined.
+ 
+No. of materials referenced in the geometry:
+ 7
+ 
+>>>> Geometry initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION PENELOPE v.2009-10-01]
+ 
+MAT#  FILENAME             EABS(e-)  EABS(ph)  EABS(e+)  C1        C2        WCC       WCR       DSMAX
+ 1    Air.mat              1.000E+03 1.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
+ 2    Aluminium.mat        1.000E+03 1.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
+ 3    Air.mat              1.000E+03 1.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
+ 4    Tungsten.mat         2.500E+04 1.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
+ 5    StainlessSteel.mat   2.500E+04 1.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
+ 6    Lead.mat             2.500E+04 1.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
+ 7    Air.mat              2.000E+04 5.000E+03 1.000E+05 2.000E-01 2.000E-01 1.000E+03 ********* 1.000E+30
+ 
+Now calling PEINIT...
+ 
+
+ **********************************
+ **   PENELOPE  (version 2014)   **
+ **********************************
+
+ EMIN = 1.0000E+03 eV,  EMAX = 2.5025E+05 eV
+
+
+ **********************
+ **   1st material   **
+ **********************
+
+ Material data file: Air.mat             
+
+ *** Simulation parameters:
+     Electron absorption energy = 1.0000E+03 eV
+       Photon absorption energy = 1.0000E+03 eV
+     Positron absorption energy = 1.0000E+05 eV
+ *** Warning: soft radiative losses are switched off
+      C1 = 2.0000E-01,       C2 = 2.0000E-01
+     WCC = 1.0000E+03 eV,   WCR = 1.0000E+01 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: AIR, DRY (NEAR SEA LEVEL)  (104)                              
+ Mass density = 1.20479000E-03 g/cm**3
+ Number of elements in the molecule =  4
+    Element: C  (Z= 6), atoms/molecule = 1.50187000E-04
+    Element: N  (Z= 7), atoms/molecule = 7.84430000E-01
+    Element: O  (Z= 8), atoms/molecule = 2.10748000E-01
+    Element: Ar (Z=18), atoms/molecule = 4.67111000E-03
+ Mean excitation energy = 8.57000000E+01 eV
+ PENELOPE (v. 2014)  End of material data file ........
+
+
+ **********************
+ **   2nd material   **
+ **********************
+
+ Material data file: Aluminium.mat       
+
+ *** Simulation parameters:
+     Electron absorption energy = 1.0000E+03 eV
+       Photon absorption energy = 1.0000E+03 eV
+     Positron absorption energy = 1.0000E+05 eV
+ *** Warning: soft radiative losses are switched off
+      C1 = 2.0000E-01,       C2 = 2.0000E-01
+     WCC = 1.0000E+03 eV,   WCR = 1.0000E+01 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: ALUMINIUM  (13)                                               
+ Mass density = 2.69890000E+00 g/cm**3
+ Number of elements in the molecule =  1
+    Element: Al (Z=13), atoms/molecule = 1.00000000E+00
+ Mean excitation energy = 1.66000000E+02 eV
+ PENELOPE (v. 2014)  End of material data file ........
+
+
+ **********************
+ **   3rd material   **
+ **********************
+
+ Material data file: Air.mat             
+
+ *** Simulation parameters:
+     Electron absorption energy = 1.0000E+03 eV
+       Photon absorption energy = 1.0000E+03 eV
+     Positron absorption energy = 1.0000E+05 eV
+ *** Warning: soft radiative losses are switched off
+      C1 = 2.0000E-01,       C2 = 2.0000E-01
+     WCC = 1.0000E+03 eV,   WCR = 1.0000E+01 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: AIR, DRY (NEAR SEA LEVEL)  (104)                              
+ Mass density = 1.20479000E-03 g/cm**3
+ Number of elements in the molecule =  4
+    Element: C  (Z= 6), atoms/molecule = 1.50187000E-04
+    Element: N  (Z= 7), atoms/molecule = 7.84430000E-01
+    Element: O  (Z= 8), atoms/molecule = 2.10748000E-01
+    Element: Ar (Z=18), atoms/molecule = 4.67111000E-03
+ Mean excitation energy = 8.57000000E+01 eV
+ PENELOPE (v. 2014)  End of material data file ........
+
+
+ **********************
+ **   4th material   **
+ **********************
+
+ Material data file: Tungsten.mat        
+
+ *** Simulation parameters:
+     Electron absorption energy = 2.5000E+04 eV
+       Photon absorption energy = 1.0000E+03 eV
+     Positron absorption energy = 1.0000E+05 eV
+ *** Warning: soft radiative losses are switched off
+      C1 = 2.0000E-01,       C2 = 2.0000E-01
+     WCC = 1.0000E+03 eV,   WCR = 1.0000E+01 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: TUNGSTEN  (74)                                                
+ Mass density = 1.93000000E+01 g/cm**3
+ Number of elements in the molecule =  1
+    Element: W  (Z=74), atoms/molecule = 1.00000000E+00
+ Mean excitation energy = 7.27000000E+02 eV
+ PENELOPE (v. 2014)  End of material data file ........
+
+
+ **********************
+ **   5th material   **
+ **********************
+
+ Material data file: StainlessSteel.mat  
+
+ *** Simulation parameters:
+     Electron absorption energy = 2.5000E+04 eV
+       Photon absorption energy = 1.0000E+03 eV
+     Positron absorption energy = 1.0000E+05 eV
+ *** Warning: soft radiative losses are switched off
+      C1 = 2.0000E-01,       C2 = 2.0000E-01
+     WCC = 1.0000E+03 eV,   WCR = 1.0000E+01 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: Stainless Steel                                               
+ Mass density = 8.06000000E+00 g/cm**3
+ Number of elements in the molecule =  6
+    Element: C  (Z= 6), atoms/molecule = 6.53041360E-03
+    Element: Si (Z=14), atoms/molecule = 1.95491556E-02
+    Element: Cr (Z=24), atoms/molecule = 2.71532879E-01
+    Element: Mn (Z=25), atoms/molecule = 1.42773304E-02
+    Element: Fe (Z=26), atoms/molecule = 1.00000000E+00
+    Element: Ni (Z=28), atoms/molecule = 1.20281339E-01
+ Mean excitation energy = 2.81194346E+02 eV
+ PENELOPE (v. 2014)  End of material data file ........
+
+
+ **********************
+ **   6th material   **
+ **********************
+
+ Material data file: Lead.mat            
+
+ *** Simulation parameters:
+     Electron absorption energy = 2.5000E+04 eV
+       Photon absorption energy = 1.0000E+03 eV
+     Positron absorption energy = 1.0000E+05 eV
+ *** Warning: soft radiative losses are switched off
+      C1 = 2.0000E-01,       C2 = 2.0000E-01
+     WCC = 1.0000E+03 eV,   WCR = 1.0000E+01 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: LEAD  (82)                                                    
+ Mass density = 1.13500000E+01 g/cm**3
+ Number of elements in the molecule =  1
+    Element: Pb (Z=82), atoms/molecule = 1.00000000E+00
+ Mean excitation energy = 8.23000000E+02 eV
+ PENELOPE (v. 2014)  End of material data file ........
+
+
+ **********************
+ **   7th material   **
+ **********************
+
+ Material data file: Air.mat             
+
+ *** Simulation parameters:
+     Electron absorption energy = 2.0000E+04 eV
+       Photon absorption energy = 5.0000E+03 eV
+     Positron absorption energy = 1.0000E+05 eV
+ *** Warning: soft radiative losses are switched off
+      C1 = 2.0000E-01,       C2 = 2.0000E-01
+     WCC = 1.0000E+03 eV,   WCR = 1.0000E+01 eV
+
+ PENELOPE (v. 2014)  Material data file ...............
+ Material: AIR, DRY (NEAR SEA LEVEL)  (104)                              
+ Mass density = 1.20479000E-03 g/cm**3
+ Number of elements in the molecule =  4
+    Element: C  (Z= 6), atoms/molecule = 1.50187000E-04
+    Element: N  (Z= 7), atoms/molecule = 7.84430000E-01
+    Element: O  (Z= 8), atoms/molecule = 2.10748000E-01
+    Element: Ar (Z=18), atoms/molecule = 4.67111000E-03
+ Mean excitation energy = 8.57000000E+01 eV
+ PENELOPE (v. 2014)  End of material data file ........
+ 
+CPU time used to init PENELOPE (s):
+     17.13
+ 
+>>>> PENELOPE initialization finished >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY VOXEL DOSE v.2014-12-27]
+>>>> Tally Voxel Dose Distribution is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY SPATIAL DOSE DISTRIB v.2009-06-15]
+>>>> Tally Spatial Dose Distrib is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY CYLINDRICAL DOSE DISTRIB v.2009-06-15]
+Memory used by static arrays (MB):
+  4.00000E+00
+>>>> Tally Cylindrical Dose Distrib is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY SPHERICAL DOSE DISTRIB v.2009-06-15]
+Memory used by static arrays (MB):
+  1.28000E+00
+>>>> Tally Spherical Dose Distrib is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY ENERGY DEPOSITION v.2012-06-01]
+Memory used by static arrays (MB):
+  2.40000E-04
+Detection material set to:
+ 3
+Relative uncertainty (%) requested:
+  1.00000E-01
+>>>> EDP tally initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION DIAPHRAGM CORRECTIONS v.2016-05-12]
+Detection material is:
+ 3
+>>>> DIAPHinitally initialization finished >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PULSE HEIGHT SPECTRUM v.2012-06-01]
+Memory used by static arrays (MB):
+  5.12000E-01
+>>>> Tally Pulse Height Spectrum is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PIXELATED IMAGING DETECTOR v.2015-02-06]
+>>>> Tally Pixelated Imaging Detector is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY FLUENCE TRACK LENGTH v.2012-06-01]
+Memory used by static arrays (MB):
+  3.58400E+00
+>>>> Tally Fluence Track Length is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PHASE SPACE FILE v.2009-06-15]
+>>>> Tally Phase Space File is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PARTICLE CURRENT SPECTRUM v.2009-06-15]
+Memory used by static arrays (MB):
+  3.07200E+00
+>>>> Tally Particle Current Spectrum is OFF >>>>
+  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION TALLY PARTICLE TRACK STRUCTURE v.2009-06-15]
+>>>> Tally Particle Track Structure is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION INTERACTION FORCING v.2009-06-15]
+>>>> Interaction Forcing is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION SPLITTING v.2015-05-30]
+>>>> Particle splitting is OFF >>>>
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[SECTION RUSSIAN ROULETTE v.2009-06-15]
+>>>> Russian roulette is OFF >>>>
+ 
+ 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+init: INITIALIZATION ENDED
+Elapsed real time:    18.67 s
+Elapsed CPU time :    17.17 s
+Memory used by penEasy arrays: 1.5E+01 MB
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
