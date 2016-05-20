@@ -202,13 +202,24 @@
               ! nel calorimetro Rx, sarà meglio impostare aria a bassa pressione, piuttosto.
               ! Massimo adds control routine on labeling transmited photon
               ! as discussed via email with Josep Sempau in February 2013
-              if ((mat.eq.4).and.(ilb(1).eq.1).and.(kpar.eq.2)) then ! New material is tungsten
-                ilb(5)=2 ! label as transmitted photon before any interaction with knockx().
-              ! occhio qui a seguire: sperimentazione del 19/05/2016
-                ilb(1)=2 ! label as no longer a primary photon. Necessary? over-cautious?
+              if ((ilb(1).eq.1).and.(kpar.eq.2)) then ! primary photon
+                if (mat.eq.4) then  ! in tungsten
+                  ilb(5)=2 ! label as transmitted photon before any interaction with knockx().
+                ! occhio qui a seguire: sperimentazione del 19/05/2016
+                  ilb(1)=2 ! if transmitted, label as secondary. This usually happens after knock()
+                else if ((mat.eq.1).or.(mat.eq.3)) then
+                  ilb(5)=1 ! This is a primary photon that entered the Chamber
+                endif
+              endif
+
+!              if ((mat.eq.4).and.(ilb(1).eq.1).and.(kpar.eq.2)) then ! New material is tungsten
+!                ilb(5)=2 ! label as transmitted photon before any interaction with knockx().
+!              ! occhio qui a seguire: sperimentazione del 19/05/2016
+!                ilb(1)=2 ! label as no longer a primary photon. Necessary? over-cautious?
               ! This is now being exploited on line #246 to re-label scattered photons
               ! that were first found inside the diaphragm.
-              endif
+!                else if ((mat.eq.1).or.(mat.eq.3)).and.(ilb(1).eq.1).and.(kpar.eq.2) then
+!              endif
 
               call start                   ! New material => reset transport mechanics
               call forcing                 ! Set interaction forcing status
@@ -250,6 +261,7 @@
             ! and coherent scatter don't add a new photon to the stack,
             ! but just alter the direction and the energy of the same photon.
             ! if this was a primary photon, such as here, it will stay a primary photon!
+            ! MIGHT have changed with PENELOPE 2014, though. See page 286 of the PENELOPE manual.
             endif
 
           enddo interact
