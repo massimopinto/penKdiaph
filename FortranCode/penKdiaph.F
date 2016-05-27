@@ -104,10 +104,10 @@
           if ((mat.eq.1).or.(mat.eq.3)) then  ! Air inside the chamber.
             ! Air surrounding the detection volume (material 1) or is the detection volume itself (material 3)
             ! if ((kpar.eq.1).and.(ilb(1).eq.2).and.(ilb(2).eq.2)) ilb(5)=1
-            if ((ilb(1).eq.2).and.(ilb(2).eq.2)) then ! secondary particle descending from a photon
+            if ((ilb(1).eq.2).and.(ilb(2).eq.2)) then ! secondary particle descending from a photon (trivial)
               if (kpar.eq.1) then ! electron
                 ilb(5)=1
-              else if (kpar.eq.2) then ! photon
+              else if (kpar.eq.2) then ! Rayleigh or Compton photon
                 ilb(5)=7 ! Mark that this is not a primary photon anymore.
                 ! Note what a free air chamber should really measure.
                 ! Qui si potrebbe replicare il lavoro di Pimpinella del 2005, k_fl, k_sc.
@@ -122,15 +122,11 @@
 ! subsequent radiative losses with ilb(5)=1 should be substracted from the counters
 ! of the body in which the electron was first created (not where Bremmsstrahlung occurs)
 
-! Questa routine, così come è, tratta l'aria fuori dalla camera ad aria libera e quella subito dietro
-! il diaframma allo stesso modo dell'aria che sta nel volume di misura. E' quello che vuoi?
-! Occorre giusto fare attenzione an caso di elettroni generati fuori da CAL.
-! Quelli non credo che occorra seguirli con tanto dettaglio, senno' vai troppo piano.
-! Potresti magari avere tre tipo di materiale aria: uno esterno e due interni.
-
 !****************************************************************
 ! Section specific to the events occuring in the DIAPHRAGM
 ! note that this is upon retrieval of the particle from the Stack
+! your perspective is not to calculate the dose in the diaphragm
+! but to mark events correctly to be followed up downstream.
 !****************************************************************
 
           if ((mat.eq.4).and.(ilb(1).gt.1)) then ! Secondary particle in the diaphragm
@@ -138,8 +134,13 @@
             ! puoi definire ilb(5) solo se non è stata definita già.
             ! ovvero controllare if (ilb(5).eq.0) then ilb(5)=....
             if (kpar.eq.2) then ! Photon
-                if (ilb(2).eq.2) then ! Fluorescence photon, was photoelectric effect of inner shell
-                    ilb(5)=4 ! fluorescence event in the diaphragm
+                if (ilb(2).eq.2) then ! second-generation photon
+                  ! case 1
+                  !if (ilb(3).eq.1).or.(ilb(3).eq.2) then ! Rayleigh or Compton scatter.
+                  ! ilb(5)=3
+                  ! else
+                  ! Fluorescence photon, was photoelectric effect of inner shell
+                    ilb(5)=4 ! fluorescence photon in the diaphragm from inner shell vacancy
                   else if (ilb(2).eq.1) then
                     ilb(5)=4 ! fluorescence unless...
                     if (ilb(3).eq.4) then
@@ -254,7 +255,7 @@
 !           if((mat.eq.4).and.(kpar.eq.2).and.(ilb(1).eq.1)) then ! *primary photon in tungsten*
             if((mat.eq.4).and.(kpar.eq.2).and.(ilb(5).eq.2)) then ! *primary photon in tungsten*
               ! this was already labeled as transmitted, earlier up on line #206
-              ! now that a call to knock was issued, we re-label the photon, just in case.
+              ! now that a call to knock() was issued, we re-label *this* photon, just in case.
               if ((icol.eq.1).or.(icol.eq.2)) ilb(5)=3
             ! ilb(5)=3 per gamma diffusi coerentemente o incoerentemente
             ! This *must* be done here after a call to knock() because Compton
